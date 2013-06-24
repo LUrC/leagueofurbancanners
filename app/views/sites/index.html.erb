@@ -65,9 +65,9 @@
     <td><%= site.site_name %></td>
     <td><%= site.city %></td>
     <td><%= site.zipcode %></td>
-    <td><%= site.owner_id? ? site.owner.full_name : nil %></td>
-    <td><%= site.secondary_owner_id? ? site.secondary_owner.full_name : nil %></td>
-    <td><%= site.lurc_contact_id? ? site.lurc_contact.full_name : nil %></td>
+    <td><%= site.owner ? site.owner.full_name : nil %></td>
+    <td><%= site.secondary_owner ? site.secondary_owner.full_name : nil %></td>
+    <td><%= site.lurc_contact ? site.lurc_contact.full_name : nil %></td>
     <td><%= site.owner_contacted %></td>
     <td><%= site.status %></td>
     <td><%= site.fruit_trees.collect { |t| t.fruit.name }.uniq.join(",") %></td>
