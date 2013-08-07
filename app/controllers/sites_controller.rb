@@ -4,9 +4,14 @@ class SitesController < ApplicationController
   # GET /sites
   # GET /sites.json
   def index
-    session[:site_filters] = @site_filters = params[:site_filters] || session[:site_filters]
-    session[:fruit_ids] = @fruit_ids = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i } || session[:fruit_ids]
-    session[:zipcode_filters] = @zipcode_filters = params[:zipcode_filters] || session[:zipcode_filters]
+    if params[:set]
+      session[:site_filters] = params[:site_filters]
+      session[:fruit_ids] = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i }
+      session[:zipcode_filters] = params[:zipcode_filters]
+    end
+    @site_filters = session[:site_filters]
+    @fruit_ids = session[:fruit_ids]
+    @zipcode_filters = session[:zipcode_filters]
 
     if (@fruit_ids)
         @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
@@ -40,34 +45,39 @@ class SitesController < ApplicationController
   end
   
   def map
-      session[:site_filters] = @site_filters = params[:site_filters] || session[:site_filters]
-      session[:fruit_ids] = @fruit_ids = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i } || session[:fruit_ids]
-      session[:zipcode_filters] = @zipcode_filters = params[:zipcode_filters] || session[:zipcode_filters]
+    if params[:set]
+      session[:site_filters] = params[:site_filters]
+      session[:fruit_ids] = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i }
+      session[:zipcode_filters] = params[:zipcode_filters]
+    end
+    @site_filters = session[:site_filters]
+    @fruit_ids = session[:fruit_ids]
+    @zipcode_filters = session[:zipcode_filters]
 
-      if (@fruit_ids)
-          @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
-      else
-          @sites = Site.joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
-      end
+    if (@fruit_ids)
+        @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+    else
+        @sites = Site.joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+    end
 
-      if @site_filters
-          @site_filters.each do |site_filter|
-              @sites = Site.filter_sites_by(@sites, site_filter); 
-          end
-      end
+    if @site_filters
+        @site_filters.each do |site_filter|
+            @sites = Site.filter_sites_by(@sites, site_filter); 
+        end
+    end
 
-      if @zipcode_filters
-          @sites = Site.filter_sites_by_zipcodes(@sites, @zipcode_filters)
-      end
-      @map_json = @sites.to_gmaps4rails do |site, marker|
-          marker.infowindow render_to_string(:partial => "marker_info", :locals => { :site => site })
-          marker.json({ :id => site.id, :link => site_url(site) })
-      end
+    if @zipcode_filters
+        @sites = Site.filter_sites_by_zipcodes(@sites, @zipcode_filters)
+    end
+    @map_json = @sites.to_gmaps4rails do |site, marker|
+        marker.infowindow render_to_string(:partial => "marker_info", :locals => { :site => site })
+        marker.json({ :id => site.id, :link => site_url(site) })
+    end
 
-      respond_to do |format|
-        format.html # index.html.erb
-        format.json { render json: @sites }
-      end     
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @sites }
+    end     
   end
 
   # GET /sites/1
