@@ -14,6 +14,7 @@ Lurc::Application.routes.draw do
   resources :sites do 
     collection do
         get 'map'
+        get 'clear_filters'
     end
   end
 

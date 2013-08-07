@@ -4,9 +4,10 @@ class SitesController < ApplicationController
   # GET /sites
   # GET /sites.json
   def index
-    @site_filters = params[:site_filters]
-    @fruit_ids = params[:fruit_ids].collect { |i| i.to_i } if params[:fruit_ids]
-    @zipcode_filters = params[:zipcode_filters]
+    session[:site_filters] = @site_filters = params[:site_filters] || session[:site_filters]
+    session[:fruit_ids] = @fruit_ids = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i } || session[:fruit_ids]
+    session[:zipcode_filters] = @zipcode_filters = params[:zipcode_filters] || session[:zipcode_filters]
+
     if (@fruit_ids)
         @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
     else
@@ -28,11 +29,21 @@ class SitesController < ApplicationController
       format.json { render json: @sites }
     end
   end
+
+  def clear_filters
+    session[:site_filters] = nil
+    session[:fruit_ids] = nil
+    session[:zipcode_filters] = nil
+    session[:sort] = nil
+    session[:direction] = nil
+    redirect_to URI(request.referer).path
+  end
   
   def map
-      @site_filters = params[:site_filters]
-      @fruit_ids = params[:fruit_ids].collect { |i| i.to_i } if params[:fruit_ids]
-      @zipcode_filters = params[:zipcode_filters]
+      session[:site_filters] = @site_filters = params[:site_filters] || session[:site_filters]
+      session[:fruit_ids] = @fruit_ids = params[:fruit_ids] && params[:fruit_ids].collect { |i| i.to_i } || session[:fruit_ids]
+      session[:zipcode_filters] = @zipcode_filters = params[:zipcode_filters] || session[:zipcode_filters]
+
       if (@fruit_ids)
           @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
       else
@@ -132,16 +143,20 @@ class SitesController < ApplicationController
   
   private
   def sort_column
-      if params[:sort] == 'lurc_contact_id'
+      session[:sort] = params[:sort] if params[:sort]
+      sort = params[:sort] || session[:sort]
+      if sort == 'lurc_contact_id'
           "LOWER(people.last_name)"
-      elsif Site.column_names.include?(params[:sort]) 
-          "sites." + params[:sort] 
+      elsif Site.column_names.include?(sort) 
+          "sites.#{sort}"
       else 
           "sites.status"
       end
   end
   
   def sort_direction
-     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
+    session[:direction] = params[:direction] if params[:direction]
+    direction = params[:direction] || session[:direction]
+     %w[asc desc].include?(direction) ?  direction : "asc"
   end
 end
