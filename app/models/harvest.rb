@@ -15,11 +15,11 @@ class Harvest < ActiveRecord::Base
   end
   
   def self.upcoming
-      where("date >= ?", Time.now)
+    order("date DESC").where("date >= ?", Date.today.to_time)
   end
   
   def self.past
-    where("date < ?", Time.now)
+    where("date < ?", Date.today.to_time)
   end
   
   def upcoming? 
