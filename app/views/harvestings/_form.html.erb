@@ -24,6 +24,7 @@
     <div class="controls"><%= f.number_field :hours %></div>
   </div>
   <div class="controls">
-    <%= f.submit :class => 'btn btn-primary' %>
+    <%= f.submit :class => 'btn btn-primary', value: 'Log Work' %>
+    <%= f.submit :class => 'btn btn-primary', :value => 'Log Work and Add Another' %>
   </div>
 <% end %>

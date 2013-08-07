@@ -47,7 +47,13 @@ class HarvestingsController < ApplicationController
 
     respond_to do |format|
       if @harvesting.save
-        format.html { redirect_to @harvesting, notice: 'Harvesting was successfully created.' }
+        format.html do 
+          if params[:commit] == "Log Work and Add Another"
+            redirect_to new_harvesting_path(harvest_id: @harvesting.harvest_id), notice: "Logged harvester's work successfully."
+          else
+            redirect_to @harvesting.harvest, notice: "Logged harvester's work successfully."
+          end
+        end
         format.json { render json: @harvesting, status: :created, location: @harvesting }
       else
         format.html { render action: "new" }
@@ -63,7 +69,11 @@ class HarvestingsController < ApplicationController
 
     respond_to do |format|
       if @harvesting.update_attributes(params[:harvesting])
-        format.html { redirect_to @harvesting, notice: 'Harvesting was successfully updated.' }
+        if params[:commit] == "Log Work and Add Another"
+          redirect_to new_harvesting_path(harvest_id: @harvesting.harvest_id), notice: "Updated harvester's work successfully."
+        else
+          redirect_to @harvesting.harvest, notice: "Updated harvester's work successfully."
+        end
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
@@ -79,7 +89,7 @@ class HarvestingsController < ApplicationController
     @harvesting.destroy
 
     respond_to do |format|
-      format.html { redirect_to harvestings_url }
+      format.html { redirect_to @harvesting.harvest, notice: "Removed harvester's log successfully." }
       format.json { head :no_content }
     end
   end
