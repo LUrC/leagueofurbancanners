@@ -3,7 +3,6 @@ class HarvestsController < ApplicationController
   # GET /harvests
   # GET /harvests.json
   def index
-    @harvests = Harvest.all
     @upcoming_harvests = Harvest.upcoming
     @past_harvests = Harvest.past
 
