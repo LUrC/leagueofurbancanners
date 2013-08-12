@@ -1,6 +1,7 @@
 <h1>Site Map</h1>
 
   <%= form_tag map_sites_path, :method => 'get' do %>
+  <%= hidden_field_tag :set, 'true' %>
 <div class="row">
   <div class="span4">
     <ul>
