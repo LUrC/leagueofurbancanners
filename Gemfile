@@ -5,6 +5,9 @@ ruby '2.0.0'
 gem 'rails', '~> 3.2.0'
 
 group :development, :test do
+  gem 'guard', '>= 2.2.2',  :require => false
+  gem 'guard-livereload',   :require => false
+  gem 'rack-livereload'
   gem 'sqlite3'
 end
 group :production do
@@ -18,6 +21,7 @@ gem 'omniauth'
 gem 'gmaps4rails'
 gem 'will_paginate'
 gem 'thin'
+gem 'slim'
 
 gem 'comfortable_mexican_sofa', '~> 1.8.1'
 gem 'comfy_blog', github: 'joahking/comfy-blog', branch: 'feature/1-8-1'

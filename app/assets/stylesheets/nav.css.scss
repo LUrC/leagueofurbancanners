@@ -1,0 +1,77 @@
+@import 'functions';
+@import 'vars';
+@import 'compass/css3';
+
+body > header nav {
+    background: image-url('../assets/dark-brick.png');
+    overflow: hidden;
+    border-bottom: 2px solid $dark-gray;
+
+    .menus {
+        @include nospace();
+        @include center();
+        max-width: $content-width;
+    }
+
+    ul {
+        @include nospace();
+
+        &.primary {
+            float: left;
+        }
+        &.secondary {
+            float: right;
+            font-size: 15px;
+            margin-right: 20px;
+
+            a {
+                padding: 10px 5px;
+            }
+        }
+    }
+
+    li {
+        @include nospace();
+        list-style-type: none;
+        display: inline-block;
+
+        a {
+            padding: 10px 25px;
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            text-shadow: 1px 1px 0 black;
+            font-weight: 600;
+            font-size: 15px;
+            @include transition-property(background, color);
+            @include transition-duration(.3s);
+
+            &:hover {
+                color: $light-green;
+                background: black-transparent();
+                @include transition-property(background, color);
+                @include transition-duration(.3s);
+            } 
+            &.logo {
+                font-family: $title-font;
+                font-weight: 400;
+                font-size: 28px;
+                line-height: 100%;
+                padding: 4px 25px;
+                vertical-align: middle;
+                color: white-transparent(.6);
+                text-shadow: 0 0 2px black-transparent(.6);
+
+                &:before {
+                    @include icon('');
+                    font-size: 24px;
+                    margin-right: 4px;
+                }
+                &:hover {
+                    color: white-transparent(.6);
+                    background: transparent;
+                }
+            }
+        }
+    }
+}

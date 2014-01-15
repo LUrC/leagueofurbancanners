@@ -1,0 +1,34 @@
+doctype html
+
+html
+    head
+        meta charset="utf-8"
+        meta name="viewport" content="width=device-width, initial-scale=1.0"
+        title 
+            = content_for?(:title) ? yield(:title) : "League of Urban Canners"
+    meta name="description" content=""
+    meta name="author" content=""
+    link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800|Medula+One' rel='stylesheet' type='text/css'
+    = stylesheet_link_tag "application", :media => "all"
+    = javascript_include_tag "application"
+    = csrf_meta_tags
+    = yield(:head) 
+
+body class=params[:controller] class=params[:action]
+    header
+        nav
+            = render 'layouts/navigation'
+        = yield :banner
+
+    section.content
+        .messages
+            = render 'layouts/messages' 
+
+        /! Main content
+        = yield
+        
+    footer
+        p.about
+            | The League of Urban Canners is an independant food production cooperative providing access to low-cost food and fostering community interdependence. We're economically and organizationally self-sufficient without paid staff or external funding.
+
+    = yield :scripts

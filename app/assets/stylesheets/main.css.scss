@@ -1,0 +1,78 @@
+@import 'compass/css3';
+@import 'functions';
+@import 'vars';
+
+// Site-wide styles
+
+html {
+    background: image-url('../assets/brickwall.png') #ececec;
+}
+
+body {
+    margin: 0 auto;
+    font-family: $body-font, sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: $title-font, sans-serif;
+    font-weight: normal;
+}
+
+h2 {
+    font-size: 250%;
+}
+
+h3 {
+    font-size: 200%;
+}
+
+h4 {
+    font-size: 175%;
+}
+
+section.content {
+    max-width: $content-width;
+    margin: 0 auto;
+}
+
+footer {
+    margin: 50px 0 0;
+    width: 100%;
+    @include box-sizing(border-box);
+    padding: 20px 0 80px;
+    border-top: 2px solid $dark-gray;
+    color: white;
+    font-size: 80%;
+    background: image-url('../assets/cans.png') repeat-x bottom right,
+                image-url('../assets/dark-wood.png') repeat-x bottom;
+}
+
+footer > * {
+    max-width: $content-width;
+    margin: 0 auto;
+    padding: 0 5%;
+    @include box-sizing(border-box);
+}
+
+.cta {
+    @include nospace;
+    color: white;
+    background: $light-green;
+    padding: 3px 3px 5px 10px;
+    position: relative;
+    font-weight: 600;
+    font-size: 18px;
+    text-shadow: 1px 1px 1px black-transparent();
+
+    &:after {
+        content: '';
+        border: 16px solid transparent;
+        border-left-color: $light-green;
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        margin-top: -16px;
+    }
+}

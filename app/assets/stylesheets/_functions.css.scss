@@ -1,0 +1,32 @@
+// Color helper functions
+@function white-transparent($opacity: .5) {
+    @return rgba(255, 255, 255, $opacity);
+}
+
+@function black-transparent($opacity: .5) {
+    @return rgba(0, 0, 0, $opacity);
+}
+
+// Icon mixin
+@mixin icon($character) {
+    content: $character;
+    font-family: 'icomoon';
+    font-weight: normal;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    speak: none;
+}
+
+// Misc Mixins
+@mixin center {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@mixin nospace {
+    margin: 0;
+    padding: 0;
+}

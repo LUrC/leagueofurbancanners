@@ -1,0 +1,85 @@
+@import 'compass/css3';
+@import 'functions';
+@import 'vars';
+
+body.home > header {
+    position: relative;
+    height: 450px;
+    background: image-url('../assets/header-bricks.png') no-repeat center;
+
+    hgroup {
+        width: 100%;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        margin-left: -50%;
+        text-align: center;
+        text-shadow: 1px 1px 0 white;
+    }
+    h1 {
+        @include nospace();
+        font-size: 1025%;
+        line-height: 65%;
+        color: $dark-gray;
+
+        .org {
+            display: block;
+            font-size: 45%;
+            line-height: 100%;
+        }
+    }
+    h2 {
+        font-family: $body-font, sans-serif;
+        font-weight: 600;
+        font-size: 150%;
+        line-height: 75%;
+    }
+}
+
+.mailing_list {
+    @include center();
+    text-align: center;
+    display: block;
+    width: auto;
+
+    input[type=email] {
+        width: 30%;
+        padding: 4px 4px 4px 24px;
+        margin: 0 0 0 -5px;
+        border-radius: 0;
+        border: 1px solid $light-gray;
+    }
+
+    input[type=submit] {
+        padding: 3px 15px;
+        margin: 0 0 0 -5px;
+        border: 0;
+        color: white;
+        text-shadow: 1px 1px 0 black-transparent();
+        font-size: 16px;
+        background: $dark-gray;
+        box-shadow: inset 1px 1px 0 white-transparent(), inset -1px -1px 0 black-transparent();
+    }
+}
+
+section.about {
+    padding: 10px 0;
+    margin: 0 115px;
+
+    &:nth-child(2n) {
+        background-color: rgba(108, 178, 81, 0.6);
+        border: 40px solid rgba(108, 178, 81, 0.6);
+        border-image: image-url('../assets/hedge.png') 38 37 40 36 round;
+        border-image-outset:  40px;
+        margin: 75px;
+    }
+    h2 {
+        line-height: 100%;
+        margin: 0;
+    }
+}
+
+p.lede {
+    font-size: 110%;
+    font-weight: 600;
+}
