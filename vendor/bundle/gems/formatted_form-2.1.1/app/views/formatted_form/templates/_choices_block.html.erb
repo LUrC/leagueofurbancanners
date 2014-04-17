@@ -1,0 +1,30 @@
+<%
+  cg_class = 'control-group'
+  cg_class << ' error' if options[:errors].present?
+  
+  label_class = options[:field_name].to_s.gsub(/(_button$|_)/, '')
+  label_class << ' inline' if options[:inline]
+%>
+
+<%= content_tag(:div, :class => cg_class) do %>
+
+  <% if options[:choices].size > 1 %>
+    <%= content_tag(:div, :class => 'control-label') do %>
+      <%= options.delete(:label) || options[:method].to_s.humanize %>
+    <% end %>
+  <% end %>
+
+  <%= content_tag(:div, :class => 'controls') do %>
+    <% options[:choices].each do |hidden, field, label| %>
+      <%= hidden %>
+      <%= content_tag(:label, :class => label_class) do %>
+        <%= field %><%= options[:label] || label %>
+      <% end %>
+    <% end %>
+    
+    <%= content_tag(:span, options[:errors], :class => 'help-block') if options[:errors].present? %>
+
+    <%= content_tag(:span, options[:help_block], :class => 'help-block')   if options[:help_block].present? %>
+    <%= content_tag(:span, options[:help_inline], :class => 'help-inline') if options[:help_inline].present? %>
+  <% end %>
+<% end %>

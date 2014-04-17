@@ -2,14 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user.role == "admin"
+    if !user
+        can :read, :all
+    elsif user.role == "admin"
         can :manage, :all
     elsif user.role == "organizer"
         can :manage, [Harvest, CanningSession, Person, StatusCheck, Harvesting, FruitTree, Site, Canning, Fruit]
-    else 
+    else
         can :read, :all
     end
-    
+
     # Define abilities for the passed in user here. For example:
     #
     #   user ||= User.new # guest user (not logged in)

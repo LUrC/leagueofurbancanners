@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130508214307) do
+ActiveRecord::Schema.define(:version => 20140417182814) do
 
   create_table "blog_comments", :force => true do |t|
     t.integer  "post_id",                         :null => false
@@ -247,8 +247,18 @@ ActiveRecord::Schema.define(:version => 20130508214307) do
     t.string   "phone"
     t.string   "email"
     t.integer  "user_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",    :null => false
+    t.datetime "updated_at",    :null => false
+    t.float    "lat"
+    t.float    "lon"
+    t.boolean  "gmaps"
+    t.integer  "street_number"
+    t.string   "street_name"
+    t.string   "street"
+    t.string   "city"
+    t.string   "zipcode"
+    t.string   "latitude"
+    t.string   "longitude"
   end
 
   create_table "prunings", :force => true do |t|

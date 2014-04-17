@@ -1,0 +1,98 @@
+<h3> Vertical (default) </h3>
+<pre>
+&lt;%= formatted_form_for @user, :url =&gt; '' do |form| %&gt;
+  &lt;%= form.text_field   :name, :help_block =&gt; 'Help Block' %&gt;
+  &lt;%= form.text_area    :bio, :rows =&gt; 3 %&gt;
+  &lt;%= form.select       :gender, ['male', 'female'] %&gt;
+  &lt;%= form.radio_button :single, ['yes', 'no'] :label =&gt; 'Independent?' %&gt;
+  &lt;%= form.check_box    :colors, {:inline =&gt; true}, ['red', 'green'] %&gt;
+  &lt;%= form.check_box    :is_awesome %&gt;
+  &lt;%= form.check_box    :is_terrible %&gt;
+  &lt;%= form.text_field   :exception %&gt;
+  &lt;%= form.text_field   :income, :prepend =&gt; '$', :append =&gt; '.00' %&gt;
+  &lt;%= form.text_field   :extra, 
+    :prepend_html =&gt; '&lt;button class="btn"&gt;Action&lt;/button&gt;',
+    :append_html  =&gt; '&lt;button class="btn"&gt;Action&lt;/button&gt;'
+  %&gt;
+  &lt;%= form.submit :class =&gt; 'btn' %&gt;
+&lt;% end %&gt;
+</pre>
+
+<%= formatted_form_for @user, :url => '' do |form| %>
+  <%= form.text_field   :name, :help_block => 'Help Block' %>
+  <%= form.text_area    :bio, :rows => 3 %>
+  <%= form.select       :gender, ['male', 'female'] %>
+  <%= form.radio_button :single, ['yes', 'no'], :label => 'Independent?' %>
+  <%= form.check_box    :colors, {:inline => true}, ['red', 'green'] %>
+  <%= form.check_box    :is_awesome %>
+  <%= form.check_box    :is_terrible %>
+  <%= form.text_field   :exception %>
+  <%= form.text_field   :income, :prepend => '$', :append => '.00' %>
+  <%= form.text_field   :extra, 
+    :prepend_html => '<button class="btn">Action</button>',
+    :append_html  => '<button class="btn">Action</button>'
+  %>
+  <%= form.submit :class => 'btn' %>
+<% end %>
+
+<h3> Horizontal </h3>
+<pre>
+  &lt;%= formatted_form_for :user, :type => :horizontal do |form| %&gt;
+    # ... same as above
+    &lt;div class="form-actions"&gt;
+      &lt;%= form.submit :class =&gt; 'btn' %&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+</pre>
+
+<%= formatted_form_for @user, :url => '', :type => :horizontal do |form| %>
+  <%= form.text_field   :name, :help_block => 'Help Block' %>
+  <%= form.text_area    :bio, :rows => 3 %>
+  <%= form.select       :gender, ['male', 'female'] %>
+  <%= form.radio_button :single, ['yes', 'no'] %>
+  <%= form.check_box    :colors, {:inline => true}, ['red', 'green'] %>
+  <%= form.check_box    :is_awesome %>
+  <%= form.check_box    :is_terrible %>
+  <%= form.text_field   :exception %>
+  <%= form.text_field   :income, :prepend => '$', :append => '.00' %>
+  <%= form.text_field   :extra, 
+    :prepend_html => '<button class="btn">Action</button>',
+    :append_html  => '<button class="btn">Action</button>'
+  %>
+  <div class="form-actions">
+    <%= form.submit :class => 'btn' %>
+  </div>
+<% end %>
+
+<h3> Inline </h3>
+<pre>
+  &lt;%= formatted_form_for @user, :url =&gt; '', :type =&gt; :inline do |form| %&gt;
+    &lt;%= form.text_field   :name, :label =&gt; false, :placeholder =&gt; 'Name' %&gt;
+    &lt;%= form.select       :gender, ['male', 'female'] %&gt;
+    &lt;%= form.check_box    :colors, {}, ['red', 'green'] %&gt;
+    &lt;%= form.submit :class =&gt; 'btn' %&gt;
+  &lt;% end %&gt;
+</pre>
+<%= formatted_form_for @user, :url => '', :type => :inline do |form| %>
+  <%= form.text_field   :name, :label => false, :placeholder => 'Name' %>
+  <%= form.select       :gender, ['male', 'female'] %>
+  <%= form.check_box    :colors, {}, ['red', 'green'] %>
+  <%= form.submit :class => 'btn' %>
+<% end %>
+
+<h3>Search</h3>
+<pre>
+  &lt;%= formatted_form_for @user, :url =&gt; '', :type =&gt; :search do |form| %&gt;
+    &lt;%= form.text_field   :name %&gt;
+    &lt;%= form.text_field   :name, :label =&gt; false, :placeholder =&gt; 'Search by Name',
+      :prepend      =&gt; '@',
+      :append_html  =&gt; '&lt;button type="submit" class="btn"&gt;Search&lt;/button&gt;' %&gt;
+  &lt;% end %&gt;
+</pre>
+
+<%= formatted_form_for @user, :url => '', :type => :search do |form| %>
+  <%= form.text_field   :name %>
+  <%= form.text_field   :name, :label => false, :placeholder => 'Search by Name',
+    :prepend      => '@',
+    :append_html  => '<button type="submit" class="btn">Search</button>' %>
+<% end %>

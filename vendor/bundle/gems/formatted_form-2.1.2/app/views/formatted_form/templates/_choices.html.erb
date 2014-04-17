@@ -1,0 +1,8 @@
+<%=
+case options[:builder].options[:type].to_s
+when 'inline', 'search'
+  render :partial => 'formatted_form/templates/choices_inline', :locals => { :options => options }
+else
+  render :partial => 'formatted_form/templates/choices_block', :locals => { :options => options }
+end
+%>

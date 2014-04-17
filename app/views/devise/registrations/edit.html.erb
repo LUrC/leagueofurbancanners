@@ -7,7 +7,7 @@
     <%= f.label :email, :class => 'control-label' %>
     <div class="controls"><%= f.email_field :email %></div>
   </div>
-  
+
   <div class="control-group">
     <% if current_user && current_user.admin? %>
       <%= f.label :role, :class => 'control-label' %>
@@ -16,8 +16,8 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :password, :class => 'control-label' %> 
-    <div class="controls"><%= f.password_field :password, :autocomplete => "off" %> 
+    <%= f.label :password, :class => 'control-label' %>
+    <div class="controls"><%= f.password_field :password, :autocomplete => "off" %>
       <span class="inline-help">(leave blank if you don't want to change it)</span></div>
   </div>
 
@@ -27,12 +27,12 @@
   </div>
 
   <div class="control-group">
-    <%= f.label :current_password, :class => 'control-label' %> 
+    <%= f.label :current_password, :class => 'control-label' %>
     <div class="controls"><%= f.password_field :current_password %>
       <span class="inline-help">(we need your current password to confirm your changes)</span></div>
   </div>
-  
-  
+
+
   <%= f.fields_for :person do |ff| %>
     <div class="control-group">
       <%= ff.label :first_name, :class => 'control-label' %>
@@ -45,6 +45,22 @@
     <div class="control-group">
       <%= ff.label :phone, :class => 'control-label' %>
       <div class="controls"><%= ff.text_field :phone %></div>
+    </div>
+    <div class="control-group">
+      <%= ff.label :street_number, :class => 'control-label' %>
+      <div class="controls"><%= ff.text_field :street_number %></div>
+    </div>
+    <div class="control-group">
+        <%= ff.label :street_name, :class => 'control-label' %>
+        <div class="controls"><%= ff.text_field :street_name %></div>
+      </div>
+    <div class="control-group">
+      <%= ff.label :city, :class => 'control-label' %>
+      <div class="controls"><%= ff.text_field :city %></div>
+    </div>
+    <div class="control-group">
+      <%= ff.label :zipcode, :class => 'control-label' %>
+      <div class="controls"><%= ff.text_field :zipcode %></div>
     </div>
   <% end %>
 

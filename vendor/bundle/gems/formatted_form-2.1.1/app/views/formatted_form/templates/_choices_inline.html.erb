@@ -1,0 +1,10 @@
+<%
+  label_class = options[:field_name].to_s.gsub(/(_button$|_)/, '')
+%>
+
+<% options[:choices].each do |hidden, field, label| %>
+  <%= hidden %>
+  <%= content_tag(:label, :class => label_class) do %>
+    <%= field %><%= options[:label] || label %>
+  <% end %>
+<% end %>

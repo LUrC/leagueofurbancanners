@@ -1,0 +1,35 @@
+<%
+  cg_class = 'control-group'
+  cg_class << ' error' if options[:errors].present?
+  
+  input_class = ''
+  if ([:prepend, :append, :prepend_html, :append_html] & options.keys).present?
+    input_class << ' input-prepend'  if options[:prepend]  || options[:prepend_html]
+    input_class << ' input-append'   if options[:append]   || options[:append_html]
+  end
+  input_class.strip!
+  
+  error_class = options[:builder].options[:type] == :vertical ? 'help-block' : 'help-inline'
+%>
+
+<%= content_tag(:div, :class => cg_class) do %>
+  
+  <%= render :partial => 'formatted_form/templates/label', :locals => { :options => options } %>
+  
+  <%= content_tag(:div, :class => 'controls') do %>
+    <%= content_tag(:div, :class => input_class) do %>
+      <%= options[:prepend_html].html_safe if options[:prepend_html].present? %>
+      <%= content_tag(:span, options[:prepend], :class => 'add-on') if options[:prepend].present? %>
+      
+      <%= options[:content] %>
+      
+      <%= content_tag(:span, options[:append], :class => 'add-on') if options[:append].present? %>
+      <%= options[:append_html].html_safe if options[:append_html].present? %>
+      
+      <%= content_tag(:span, options[:errors], :class => error_class) if options[:errors].present? %>
+      
+      <%= content_tag(:span, options[:help_block], :class => 'help-block')   if options[:help_block].present? %>
+      <%= content_tag(:span, options[:help_inline], :class => 'help-inline') if options[:help_inline].present? %>
+    <% end %>
+  <% end %>
+<% end %>

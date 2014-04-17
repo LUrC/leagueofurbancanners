@@ -1,0 +1,7 @@
+.bundle
+.DS_Store
+.rvmrc
+pkg
+/test/dummy/log/*.log
+/test/dummy/tmp/
+Gemfile.lock

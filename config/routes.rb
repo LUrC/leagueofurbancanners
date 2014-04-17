@@ -11,23 +11,30 @@ Lurc::Application.routes.draw do
   resources :status_checks
   resources :fruit_trees
   resources :fruits
-  resources :sites do 
+  resources :sites do
     collection do
         get 'map'
         get 'clear_filters'
     end
   end
 
-  resources :people do 
-    member do 
+  resources :people do
+    member do
         get 'merge'
         post 'commit_merge'
-    end  
+    end
   end
 
-  ComfyBlog::Routing.admin
-  ComfyBlog::Routing.content
 
-  ComfortableMexicanSofa::Routing.admin   :path => '/cms-admin'
-  ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
+  authenticated :user do
+    root :to => "sites#index"
+  end
+
+  root :to => 'home#index'
+
+  # ComfyBlog::Routing.admin
+  # ComfyBlog::Routing.content
+
+  # ComfortableMexicanSofa::Routing.admin   :path => '/cms-admin'
+  # ComfortableMexicanSofa::Routing.content :path => '/', :sitemap => false
 end
