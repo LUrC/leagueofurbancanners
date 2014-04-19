@@ -1,7 +1,10 @@
 class Person < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :phone
-  attr_accessible :city, :latitude, :longitude, :street, :zipcode
+  attr_accessible :city, :latitude, :longitude, :zipcode
   attr_accessible :lat, :lon, :gmaps, :street_number, :street_name
+
+  geocoded_by :address, :latitude => :lat, :longitude => :lon
+  after_validation :geocode
 
   default_scope order('last_name ASC, first_name ASC')
 
@@ -13,6 +16,8 @@ class Person < ActiveRecord::Base
 
   validates_presence_of :last_name
   before_save :copy_email_from_user
+
+  acts_as_gmappable :lat => "lat", :lng => "lon"
 
   def full_name
     first_name + " " + last_name
@@ -43,6 +48,32 @@ class Person < ActiveRecord::Base
 
   def copy_email_from_user
     self.email = self.user.email if self.email == nil && self.user_id?
+  end
+
+  def address
+    "#{street_number} #{street_name}, #{city}, MA #{zipcode}"
+  end
+
+  def gmaps4rails_address
+    "#{street_number} #{street_name}, #{city}, MA #{zipcode}"
+  end
+
+  def gmaps4rails_title
+    "#{full_name}"
+  end
+
+  def gmaps4rails_sidebar
+    "<li>#{full_name}</li>" #put whatever you want here
+  end
+
+  def gmaps4rails_marker_picture
+    picpath = "/assets/person.png"
+    {
+     "picture" => picpath,
+     "width" => 30,
+     "height" => 30,
+     "marker_anchor" => [ 5, 10],
+    }
   end
 
 end

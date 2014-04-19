@@ -1,0 +1,65 @@
+<h2>Select a site</h2>
+
+<p>Each LUrC member coordinates one or more sites.  A site coordinator keeps an eye on the tree at their site during the season and arranges with the owner to have LUrC harvest it.  To make it easy to watch your site you should choose a site near to your home or work or on a route that you frequently travel.</p>
+
+<h3>Based on the address</h3>
+
+<%= form_tag(site_chooser_person_path(@person), method: :get) do  %>
+  <div class="control-group">
+    <%= text_field_tag 'address', @address, size: 60, style: 'width:360px;margin-bottom:0;' %>
+    <%= submit_tag 'Refresh', :class => 'btn btn-primary' %>
+  </div>
+<% end %>
+
+<h3>consider these sites:</h3>
+
+<div class="row">
+  <div class="span9">
+    <%= gmaps("markers" => {"data" => @map_json, "options" => {"list_container" => "markers_list" } }) %>
+  </div>
+  <div class="span3">
+    <ul id="markers_list">  </ul>
+  </div>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Address</th>
+            <th>Fruit</th>
+            <th>Ripeness Range</th>
+            <th>Owner Contacts</th>
+            <th>Previously Harvested?</th>
+            <th>Harvest Permission Status</th>
+            <th>Select Site</th>
+        </tr>
+    </thead>
+    <tbody>
+    <% @choices.each do |site| %>
+        <tr>
+            <td><%= site.address %></td>
+            <td><%= site.fruit_trees.map { |t| t.fruit.name }.join(', ') %></td>
+            <td><%= site.fruit_trees.map { |t| t.season_string }.join(', ') %></td>
+            <td><%= site.owner_contact_status %></td>
+            <td><%= site.harvests.count > 0 ? "yes" : "no" %></td>
+            <td><%= site.status %></td>
+            <td><%= link_to 'Select', coordinate_site_path(site, :person_id => @person), :class => 'btn btn-primary' %></td>
+        </tr>
+    <% end %>
+    </tbody>
+</table>
+
+<h3>Or view the full map of sites:</h3>
+
+<%= link_to 'Go to the full site map', map_sites_path, :class => 'btn btn-primary' %></td>
+
+<h3>Or scout a new site and add it to the map:</h3>
+
+<%= link_to 'Add a new site', new_site_path, :class => 'btn btn-primary' %>
+
+<h3>Not right now?</h3>
+
+<%= link_to "Continue to site", sites_path, :class => 'btn btn-primary' %>
+
+
+

@@ -61,6 +61,15 @@ class Site < ActiveRecord::Base
       sites.select { |s| zipcodes.include?(s.zipcode) }
   end
 
+  def self.closest_sites(centerlat, centerlng, limit, include_coordinated = false)
+    if (include_coordinated)
+      sites = Site.find_by_sql(["SELECT id, lat, lon, POW(69.1 * (lat - ?), 2) + POW(69.1 * (? - lon) * COS(lat / 57.3), 2) AS distance FROM sites ORDER BY distance LIMIT ?;", centerlat, centerlng, limit])
+    else
+      sites = Site.find_by_sql(["SELECT id, lat, lon, POW(69.1 * (lat - ?), 2) + POW(69.1 * (? - lon) * COS(lat / 57.3), 2) AS distance FROM sites WHERE lurc_contact_id is null OR lurc_contact_id=30 ORDER BY distance LIMIT ?;", centerlat, centerlng, limit])
+    end
+    sites = sites.collect { |s| Site.find(s.id) }
+  end
+
   def site_name
     if User.session_current_user && sees_street(User.session_current_user)
       street_name + " (##{street_number})"
@@ -89,6 +98,24 @@ class Site < ActiveRecord::Base
 
   def sees_street(user)
       user.admin? || user.organizer? || user.person == lurc_contact || user.person == owner || user.person == secondary_owner
+  end
+
+  def owner_contact_status
+    if !owner
+      "owner unknown"
+    elsif (owner.full_name == "Unknown Unknown" || owner.full_name.blank?) && owner.phone.blank? && owner.email.blank?
+      "no contact info"
+    elsif owner.phone.blank? && owner.email.blank?
+      "name only"
+    elsif !owner.phone.blank? && owner.email.blank?
+      "phone number"
+    elsif !owner.email.blank? && owner.phone.blank?
+      "email address"
+    elsif !owner.email.blank? && !owner.phone.blank?
+      "email and phone"
+    else
+      "unknown"  # ideally should not get here
+    end
   end
 
   private

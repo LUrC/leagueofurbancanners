@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20140417182814) do
     t.text     "content"
     t.string   "excerpt",      :limit => 1024
     t.string   "author"
-    t.integer  "year",         :limit => 4,                      :null => false
+    t.integer  "year",                                           :null => false
     t.integer  "month",        :limit => 2,                      :null => false
     t.boolean  "is_published",                 :default => true, :null => false
     t.datetime "published_at",                                   :null => false
@@ -124,47 +124,47 @@ ActiveRecord::Schema.define(:version => 20140417182814) do
   add_index "cms_files", ["site_id", "position"], :name => "index_cms_files_on_site_id_and_position"
 
   create_table "cms_layouts", :force => true do |t|
-    t.integer  "site_id",                                           :null => false
+    t.integer  "site_id",                       :null => false
     t.integer  "parent_id"
     t.string   "app_layout"
-    t.string   "label",                                             :null => false
-    t.string   "identifier",                                        :null => false
-    t.text     "content",    :limit => 16777215
-    t.text     "css",        :limit => 16777215
-    t.text     "js",         :limit => 16777215
-    t.integer  "position",                       :default => 0,     :null => false
-    t.boolean  "is_shared",                      :default => false, :null => false
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.string   "label",                         :null => false
+    t.string   "identifier",                    :null => false
+    t.text     "content"
+    t.text     "css"
+    t.text     "js"
+    t.integer  "position",   :default => 0,     :null => false
+    t.boolean  "is_shared",  :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "cms_layouts", ["parent_id", "position"], :name => "index_cms_layouts_on_parent_id_and_position"
   add_index "cms_layouts", ["site_id", "identifier"], :name => "index_cms_layouts_on_site_id_and_identifier", :unique => true
 
   create_table "cms_pages", :force => true do |t|
-    t.integer  "site_id",                                               :null => false
+    t.integer  "site_id",                           :null => false
     t.integer  "layout_id"
     t.integer  "parent_id"
     t.integer  "target_page_id"
-    t.string   "label",                                                 :null => false
+    t.string   "label",                             :null => false
     t.string   "slug"
-    t.string   "full_path",                                             :null => false
-    t.text     "content",        :limit => 16777215
-    t.integer  "position",                           :default => 0,     :null => false
-    t.integer  "children_count",                     :default => 0,     :null => false
-    t.boolean  "is_published",                       :default => true,  :null => false
-    t.boolean  "is_shared",                          :default => false, :null => false
-    t.datetime "created_at",                                            :null => false
-    t.datetime "updated_at",                                            :null => false
+    t.string   "full_path",                         :null => false
+    t.text     "content"
+    t.integer  "position",       :default => 0,     :null => false
+    t.integer  "children_count", :default => 0,     :null => false
+    t.boolean  "is_published",   :default => true,  :null => false
+    t.boolean  "is_shared",      :default => false, :null => false
+    t.datetime "created_at",                        :null => false
+    t.datetime "updated_at",                        :null => false
   end
 
   add_index "cms_pages", ["parent_id", "position"], :name => "index_cms_pages_on_parent_id_and_position"
   add_index "cms_pages", ["site_id", "full_path"], :name => "index_cms_pages_on_site_id_and_full_path"
 
   create_table "cms_revisions", :force => true do |t|
-    t.string   "record_type",                     :null => false
-    t.integer  "record_id",                       :null => false
-    t.text     "data",        :limit => 16777215
+    t.string   "record_type", :null => false
+    t.integer  "record_id",   :null => false
+    t.text     "data"
     t.datetime "created_at"
   end
 
@@ -183,14 +183,14 @@ ActiveRecord::Schema.define(:version => 20140417182814) do
   add_index "cms_sites", ["is_mirrored"], :name => "index_cms_sites_on_is_mirrored"
 
   create_table "cms_snippets", :force => true do |t|
-    t.integer  "site_id",                                           :null => false
-    t.string   "label",                                             :null => false
-    t.string   "identifier",                                        :null => false
-    t.text     "content",    :limit => 16777215
-    t.integer  "position",                       :default => 0,     :null => false
-    t.boolean  "is_shared",                      :default => false, :null => false
-    t.datetime "created_at",                                        :null => false
-    t.datetime "updated_at",                                        :null => false
+    t.integer  "site_id",                       :null => false
+    t.string   "label",                         :null => false
+    t.string   "identifier",                    :null => false
+    t.text     "content"
+    t.integer  "position",   :default => 0,     :null => false
+    t.boolean  "is_shared",  :default => false, :null => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
   end
 
   add_index "cms_snippets", ["site_id", "identifier"], :name => "index_cms_snippets_on_site_id_and_identifier", :unique => true

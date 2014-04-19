@@ -30,8 +30,8 @@ rubyhdrdir = $(includedir)/$(RUBY_VERSION_NAME)
 vendorarchdir = $(vendorlibdir)/$(sitearch)
 vendorlibdir = $(vendordir)/$(ruby_version)
 vendordir = $(rubylibprefix)/vendor_ruby
-sitearchdir = ./.gem.20140417-62702-1aykr8w
-sitelibdir = ./.gem.20140417-62702-1aykr8w
+sitearchdir = ./.gem.20140417-70408-1q9bu7k
+sitelibdir = ./.gem.20140417-70408-1q9bu7k
 sitedir = $(rubylibprefix)/site_ruby
 rubyarchdir = $(rubylibdir)/$(arch)
 rubylibdir = $(rubylibprefix)/$(ruby_version)
@@ -81,9 +81,9 @@ CCDLFLAGS = -fno-common
 CFLAGS   = $(CCDLFLAGS)  -O3 -Wno-error=shorten-64-to-32  -pipe $(ARCH_FLAG)
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
-CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -I/usr/local/Cellar/postgresql/9.2.4/include -I'/usr/local/opt/rbenv/versions/2.0.0-p247/include'  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
+CPPFLAGS = -DRUBY_EXTCONF_H=\"$(RUBY_EXTCONF_H)\" -I/usr/local/Cellar/postgresql/9.3.4/include -I'/usr/local/opt/rbenv/versions/2.0.0-p247/include'  -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT $(DEFS) $(cppflags)
 CXXFLAGS = $(CCDLFLAGS) $(cxxflags) $(ARCH_FLAG)
-ldflags  = -L. -L'/usr/local/opt/rbenv/versions/2.0.0-p247/lib'  -Wl,-rpath,/usr/local/Cellar/postgresql/9.2.4/lib
+ldflags  = -L. -L'/usr/local/opt/rbenv/versions/2.0.0-p247/lib'  -Wl,-rpath,/usr/local/Cellar/postgresql/9.3.4/lib
 dldflags = -Wl,-undefined,dynamic_lookup -Wl,-multiply_defined,suppress 
 ARCH_FLAG = 
 DLDFLAGS = $(ldflags) $(dldflags) $(ARCH_FLAG)
@@ -120,8 +120,8 @@ TOUCH = exit >
 
 preload = 
 
-libpath = . $(libdir) /usr/local/Cellar/postgresql/9.2.4/lib
-LIBPATH =  -L. -L$(libdir) -L/usr/local/Cellar/postgresql/9.2.4/lib
+libpath = . $(libdir) /usr/local/Cellar/postgresql/9.3.4/lib
+LIBPATH =  -L. -L$(libdir) -L/usr/local/Cellar/postgresql/9.3.4/lib
 DEFFILE = 
 
 CLEANFILES = mkmf.log

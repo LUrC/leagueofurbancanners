@@ -1,6 +1,6 @@
 Lurc::Application.routes.draw do
 
-  devise_for :users
+  devise_for :users, :controllers => { :registrations => "registrations" }
   resources :users, :only => [:edit, :update]
 
   resources :prunings
@@ -16,18 +16,22 @@ Lurc::Application.routes.draw do
         get 'map'
         get 'clear_filters'
     end
+    member do
+      get 'coordinate'
+    end
   end
 
   resources :people do
     member do
         get 'merge'
         post 'commit_merge'
+        get 'site_chooser'
     end
   end
 
 
   authenticated :user do
-    root :to => "sites#index"
+    root :to => "home#member_index"
   end
 
   root :to => 'home#index'

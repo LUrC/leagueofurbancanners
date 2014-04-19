@@ -18,17 +18,17 @@ class SitesController < ApplicationController
     else
         @sites = Site.joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
     end
-    
+
     if @site_filters
         @site_filters.each do |site_filter|
-            @sites = Site.filter_sites_by(@sites, site_filter); 
+            @sites = Site.filter_sites_by(@sites, site_filter);
         end
     end
-    
+
     if @zipcode_filters
         @sites = Site.filter_sites_by_zipcodes(@sites, @zipcode_filters)
     end
-        
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sites }
@@ -43,7 +43,7 @@ class SitesController < ApplicationController
     session[:direction] = nil
     redirect_to URI(request.referer).path
   end
-  
+
   def map
     if params[:set]
       session[:site_filters] = params[:site_filters]
@@ -62,7 +62,7 @@ class SitesController < ApplicationController
 
     if @site_filters
         @site_filters.each do |site_filter|
-            @sites = Site.filter_sites_by(@sites, site_filter); 
+            @sites = Site.filter_sites_by(@sites, site_filter);
         end
     end
 
@@ -77,7 +77,7 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @sites }
-    end     
+    end
   end
 
   # GET /sites/1
@@ -88,6 +88,28 @@ class SitesController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @site }
+    end
+  end
+
+  def coordinate
+    if (params[:person_id])
+      @person = Person.find(params[:person_id])
+      @site = Site.find(params[:id])
+      error = ""
+      if !@site.lurc_contact_id || @site.lurc_contact_id == 30
+        @site.lurc_contact_id = @person.id
+      else
+        error = 'There is already a coordinator for this site.'
+      end
+    end
+    respond_to do |format|
+      if @site.save && @site.lurc_contact_id == @person.id
+        format.html { redirect_to @site, notice: 'Congratulations, you are now the coordinator of this site.' }
+        format.json { render json: @site, location: @site }
+      else
+        format.html { redirect_to @site, notice: "There was an error setting you as coordinator. #{error}" }
+        format.json { render json: @site.errors }
+      end
     end
   end
 
@@ -150,20 +172,20 @@ class SitesController < ApplicationController
       format.json { head :no_content }
     end
   end
-  
+
   private
   def sort_column
       session[:sort] = params[:sort] if params[:sort]
       sort = params[:sort] || session[:sort]
       if sort == 'lurc_contact_id'
           "LOWER(people.last_name)"
-      elsif Site.column_names.include?(sort) 
+      elsif Site.column_names.include?(sort)
           "sites.#{sort}"
-      else 
+      else
           "sites.status"
       end
   end
-  
+
   def sort_direction
     session[:direction] = params[:direction] if params[:direction]
     direction = params[:direction] || session[:direction]
