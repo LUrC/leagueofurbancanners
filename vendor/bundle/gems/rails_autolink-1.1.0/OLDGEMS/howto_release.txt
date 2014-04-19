@@ -1,3 +1,0 @@
-rake gem
-cd pkg
-gem push rails_autolink-X.gem
