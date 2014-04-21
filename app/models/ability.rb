@@ -2,6 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, params)
+    Rails.logger.debug(params)
+    Rails.logger.debug(user.person)
     if !user
         can :read, :all
     elsif user.role == "admin"
@@ -12,8 +14,10 @@ class Ability
         can :read, :all
         can :site_chooser, Person, :id => user.person.id
         can :coordinate, Site if params[:person_id].to_i == user.person.id
-        can :create, Harvest if FruitTree.find(params[:fruit_tree_id]).site.lurc_contact.id = user.person.id
-        can :update, Harvest, :fruit_tree => { :site => { :lurc_contact_id => user.person.id }}
+        can :create, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
+        can :update, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
+        can :create, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
+        can :destroy, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
     end
 
     # Define abilities for the passed in user here. For example:

@@ -58,7 +58,59 @@
     </tr>
   <% end %>
   </table>
+
+  <%= link_to 'Choose another site', site_chooser_person_path(@person), :class => 'btn btn-primary' %>
 <% end %>
+
+<h3>Harvests</h3>
+
+To schedule a new harvest, visit the page for the site to be harvested.
+
+<% if @person.upcoming_harvestings.count > 0 %>
+  <h4>Upcoming</h4>
+
+  <table class="table table-striped">
+    <tr>
+        <th>Harvest</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+    <% @person.upcoming_harvestings.each do |harvesting| %>
+      <tr>
+        <td><%= harvesting.harvest.harvest_name %></td>
+        <td><%= harvesting.status %></td>
+        <td><%= link_to 'Go', harvest_harvesting_path(harvesting.harvest, harvesting), :class => 'btn btn-mini btn-primary' %></td>
+      </tr>
+    <% end %>
+  </table>
+
+<% end %>
+
+<% if @person.past_harvestings.count > 0 %>
+  <h4>Recent</h4>
+
+  <table class="table table-striped">
+    <tr>
+        <th>Harvest</th>
+        <th>Hours</th>
+        <th></th>
+    </tr>
+  <% @person.past_harvestings.take(5).each do |harvesting| %>
+    <tr>
+      <td><%= harvesting.harvest.harvest_name %></td>
+      <td><%= harvesting.hours %></td>
+      <td><%= link_to 'Go', harvest_harvesting_path(harvesting.harvest, harvesting), :class => 'btn btn-mini btn-primary' %></td>
+    </tr>
+  <% end %>
+  </table>
+
+  <% if @person.past_harvestings.count > 5 %>
+    <%= link_to 'View All Harvests', person_harvests_path(@person), :class => 'btn' %>
+  <% end %>
+
+<% end %>
+
+
 
 
 

@@ -13,6 +13,8 @@ class Person < ActiveRecord::Base
   has_many :owned_sites, :class_name => 'Site', :foreign_key => 'owner_id'
   has_many :secondary_owned_sites, :class_name => 'Site', :foreign_key => 'secondary_owner_id'
   has_many :contact_sites, :class_name => 'Site', :foreign_key => 'lurc_contact_id'
+  has_many :harvestings, :foreign_key => 'harvester_id', :include => :harvest, :order => 'harvests.date DESC, harvestings.id ASC'
+  has_many :harvests, :through => :harvestings
 
   validates_presence_of :last_name
   before_save :copy_email_from_user
@@ -74,6 +76,14 @@ class Person < ActiveRecord::Base
      "height" => 30,
      "marker_anchor" => [ 5, 10],
     }
+  end
+
+  def past_harvestings
+    harvestings.reject { |h| h.harvest.upcoming? }
+  end
+
+  def upcoming_harvestings
+    harvestings.select { |h| h.harvest.upcoming? }
   end
 
 end

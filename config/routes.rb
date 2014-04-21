@@ -6,8 +6,9 @@ Lurc::Application.routes.draw do
   resources :prunings
   resources :cannings
   resources :canning_sessions
-  resources :harvestings
-  resources :harvests
+  resources :harvests do
+      resources :harvestings
+  end
   resources :status_checks
   resources :fruit_trees
   resources :fruits
@@ -22,6 +23,8 @@ Lurc::Application.routes.draw do
   end
 
   resources :people do
+    resources :harvests, :only => [:index]
+    resources :harvestings
     member do
         get 'merge'
         post 'commit_merge'

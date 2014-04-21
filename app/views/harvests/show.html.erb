@@ -2,17 +2,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <b>Description:</b>
   <%= @harvest.description %>
 </p>
 
 <p>
-  <b>Harvesters needed:</b>
+  <b>Total harvesters needed:</b>
   <%= @harvest.harvesters_needed %>
+  <% if @harvest.upcoming? %>
+    <% if @harvest.harvesters_needed > @harvest.harvestings.count %>
+      <br /><em>(<%= @harvest.harvesters_needed - @harvest.harvestings.count %> spots left)</em>
+    <% else %>
+      <br /><em>This harvest is full.</em>
+    <% end %>
+  <% end %>
 </p>
 
 <p>
-  <b>Canners needed:</b>
+  <b>Total canners needed:</b>
   <%= @harvest.canners_needed %>
 </p>
 
@@ -31,50 +37,81 @@
   <%= link_to @harvest.leader.full_name, @harvest.leader %>
 </p>
 
-<p>
-  <b>Amount harvested:</b>
-  <%= @harvest.amount_harvested %>
-</p>
+<% if !@harvest.upcoming? %>
+  <p>
+    <b>Amount harvested:</b>
+    <%= @harvest.amount_harvested %>
+  </p>
 
-<p>
-  <b>Notes:</b>
-  <%= @harvest.notes %>
-</p>
+  <p>
+    <b>Notes:</b>
+    <%= @harvest.notes %>
+  </p>
+<% end %>
 
-<p>
-  <% if user_signed_in? && current_user.organizer? %>
-    <%= link_to 'New Canning Session', new_canning_session_path(:harvest_id => @harvest.id), :class => 'btn btn-primary' %> 
-    <%= link_to 'Log Harvester Work', new_harvesting_path(:harvest_id => @harvest.id), :class => 'btn btn-primary' %>
-  <% end %>
-  <% if @harvest.upcoming? %>
-    <%= link_to 'Join the Harvest', '#', :class => 'btn btn-primary' %>
-  <% end %>
-</p>
-
-<h2>Harvester Logs</h2>
+<h2>Harvesters</h2>
 <table class="table table-striped">
   <tr>
     <th>Harvester</th>
-    <th>Hours</th>
+    <% if !@harvest.upcoming? %>
+      <th>Hours</th>
+    <% end %>
+    <% if @harvest.upcoming? %>
+      <th>Status</th>
+    <% end %>
     <th></th>
-    <% if user_signed_in? && current_user.organizer? %>
+    <% if user_signed_in? && current_user.organizer? || current_user.person.id == @harvest.leader.id || current_user.person.id == harvesting.harvester_id %>
       <th></th>
+      <th></th>
+    <% end %>
+    <% if current_user.person.id == @harvest.leader.id %>
       <th></th>
     <% end %>
   </tr>
 
-<% @harvest.harvestings.each do |harvesting| %>
+<% @harvest.harvestings.each_with_index do |harvesting, index| %>
   <tr>
     <td><%= harvesting.harvester.full_name %></td>
-    <td><%= harvesting.hours %></td>
-    <td><%= link_to 'Learn More', harvesting, :class => 'btn btn-mini' %></td>
-    <% if user_signed_in? && current_user.organizer? %>
-      <td><%= link_to 'Edit', edit_harvesting_path(harvesting), :class => 'btn btn-mini' %></td>
-      <td><%= link_to 'Delete', harvesting, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+    <% if !@harvest.upcoming? %>
+      <td><%= harvesting.hours %></td>
+    <% end %>
+    <% if @harvest.upcoming? %>
+      <td>
+        <%= harvesting.status %>
+      </td>
+    <% end %>
+    <td><%= link_to 'Learn More', harvest_harvesting_path(@harvest), :class => 'btn btn-mini' %></td>
+    <% if user_signed_in? && current_user.organizer? || current_user.person.id == @harvest.leader.id || current_user.person.id == harvesting.harvester_id %>
+      <td><%= link_to 'Edit', edit_harvest_harvesting_path(@harvest, harvesting), :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Cancel', harvest_harvesting_path(@harvest, harvesting, :person_id => current_user.person.id), method: :delete, data: { confirm: 'Are you sure?  If you are canceling close to the harvest date, please email the organizer to let them know.' }, :class => 'btn btn-mini btn-danger' %></td>
+    <% end %>
+    <% if current_user.person.id == @harvest.leader.id %>
+      <td><%= link_to 'Email', '#', :class => 'btn btn-mini' %></td>
     <% end %>
   </tr>
 <% end %>
 </table>
+
+<p>
+  <% if user_signed_in? && current_user.organizer? %>
+    <%= link_to 'New Canning Session', new_canning_session_path(:harvest_id => @harvest.id), :class => 'btn btn-primary' %>
+    <%= link_to 'Log Harvester Sign Up or Work', new_harvest_harvesting_path(@harvest), :class => 'btn btn-primary' %>
+  <% end %>
+  <% if @harvest.upcoming? %>
+    <% if @harvest.harvesters_needed > @harvest.harvestings.count %>
+      <%= link_to 'Join the Harvest', {:controller => 'harvestings', :action => 'create', :person_id => current_user.person.id, :harvest_id => @harvest.id, :harvesting => {:harvest_id => @harvest.id, :harvester_id => current_user.person.id}}, {:method => :post, :class => 'btn btn-primary'} %> <%= @harvest.harvesters_needed - @harvest.harvestings.count %> spots left.
+    <% else %>
+      <%= link_to 'Join the wait list', {:controller => 'harvestings', :action => 'create', :person_id => current_user.person.id, :harvest_id => @harvest.id, :harvesting => {:harvest_id => @harvest.id, :harvester_id => current_user.person.id}}, {:method => :post, :class => 'btn btn-primary'} %>
+      This harvest is full but you can sign up as an alternate.
+    <% end %>
+  <% end %>
+</p>
+
+<p>
+<% if current_user.person.id == @harvest.leader.id %>
+  <%= link_to 'Email the Harvesters', '#', :class => 'btn btn-primary' %>  <%= link_to 'Email the waitlist', '#', :class => 'btn btn-primary' %>
+<% end %>
+</p>
 
 <h2>Canning Sessions</h2>
 

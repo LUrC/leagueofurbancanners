@@ -6,6 +6,12 @@ class HarvestsController < ApplicationController
     @upcoming_harvests = Harvest.upcoming
     @past_harvests = Harvest.past
 
+    if params[:person_id]
+      @person = Person.find(params[:person_id])
+      @upcoming_harvests = @person.upcoming_harvestings.map(&:harvest)
+      @past_harvests = @person.past_harvestings.map(&:harvest)
+    end
+
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @harvests }
