@@ -1,15 +1,19 @@
 class Ability
   include CanCan::Ability
 
-  def initialize(user)
+  def initialize(user, params)
     if !user
-        can :manage, :all
+        can :read, :all
     elsif user.role == "admin"
         can :manage, :all
     elsif user.role == "organizer"
         can :manage, [Harvest, CanningSession, Person, StatusCheck, Harvesting, FruitTree, Site, Canning, Fruit]
     else
-        can :manage, :all
+        can :read, :all
+        can :site_chooser, Person, :id => user.person.id
+        can :coordinate, Site if params[:person_id].to_i == user.person.id
+        can :create, Harvest if FruitTree.find(params[:fruit_tree_id]).site.lurc_contact.id = user.person.id
+        can :update, Harvest, :fruit_tree => { :site => { :lurc_contact_id => user.person.id }}
     end
 
     # Define abilities for the passed in user here. For example:

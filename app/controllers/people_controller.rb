@@ -102,7 +102,7 @@ class PeopleController < ApplicationController
       @choices = Site.closest_sites(s.lat, s.lon, 15);
     else
       @address = @person.address
-      @choices = Site.closest_sites(@person.lat, @person.lon, 15, true);
+      @choices = Site.closest_sites(@person.lat, @person.lon, 15);
     end
     @map_json = ([@person] + @choices).to_gmaps4rails do |item, marker|
       if item.is_a? Site

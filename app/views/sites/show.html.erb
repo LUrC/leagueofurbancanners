@@ -61,8 +61,15 @@
     <th>Season start</th>
     <th>Season end</th>
     <th></th>
-    <th></th>
-    <th></th>
+    <% if current_user.person.id == @site.lurc_contact_id %>
+      <th></th>
+      <th></th>
+      <th></th>
+    <% end %>
+    <% if current_user.admin? %>
+      <th></th>
+      <th></th>
+    <% end %>
   </tr>
 
 <% @site.fruit_trees.each do |fruit_tree| %>
@@ -71,8 +78,15 @@
     <td><%= fruit_tree.start_month %> <%= fruit_tree.start_day %></td>
     <td><%= fruit_tree.end_month %> <%= fruit_tree.end_day %></td>
     <td><%= link_to 'Learn More', fruit_tree, :class => 'btn btn-mini' %></td>
-    <td><%= link_to 'Edit', edit_fruit_tree_path(fruit_tree), :class => 'btn btn-mini' %></td>
-    <td><%= link_to 'Delete', fruit_tree, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+    <% if current_user.person.id == @site.lurc_contact_id %>
+      <td><%= link_to 'Schedule Harvest', new_harvest_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini btn-primary' %></td>
+      <td><%= link_to 'Schedule Pruning', new_pruning_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Report Status Check', new_status_check_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini' %></td>
+    <% end %>
+    <% if current_user.admin? %>
+      <td><%= link_to 'Edit', edit_fruit_tree_path(fruit_tree), :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Delete', fruit_tree, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+    <% end %>
   </tr>
 <% end %>
 </table>

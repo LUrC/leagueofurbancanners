@@ -1,8 +1,8 @@
-<h1><%= @person.full_name %></h1>
+<h2><%= @person.full_name %></h2>
 
 <p id="notice"><%= notice %></p>
 
-<% if user_signed_in? && current_user.organizer? %>
+<% if user_signed_in? && current_user.organizer? || current_user.person.id == @person.id %>
 <p>
   <b>Phone:</b>
   <%= @person.phone %>
@@ -12,38 +12,55 @@
   <b>Email:</b>
   <%= @person.email %>
 </p>
+
+<p>
+  <b>Address:</b>
+  <%= @person.address %>
+</p>
 <% end %>
 
-<h2>Sites</h2>
-<table class="table table-striped">
-  <tr>
-    <th>Street</th>
-    <th>City</th>
-    <th>Zipcode</th>
-    <th>Role</th>
-    <th>Harvest Permission</th>
-    <th></th>
-    <% if user_signed_in? && current_user.admin? %>
-      <th></th>
-      <th></th>
-    <% end %>
-  </tr>
-
-<% @person.all_sites.each do |site| %>
-  <tr>
-    <td><%= site.site_name %></td>
-    <td><%= site.city %></td>
-    <td><%= site.zipcode %></td>
-    <td><%= @person.site_role(site) %></td>
-    <td><%= site.status %></td>
-    <td><%= link_to 'Learn More', site, :class => 'btn btn-mini' %></td>
-    <% if user_signed_in? && current_user.admin? %>
-      <td><%= link_to 'Edit', edit_site_path(site), :class => 'btn btn-mini' %></td>
-      <td><%= link_to 'Delete', site, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
-    <% end %>
-  </tr>
+<% if current_user.person.id == @person.id || current_user.admin? %>
+  <%= link_to 'Edit', edit_person_path(@person), :class => 'btn btn-primary' %>
 <% end %>
-</table>
+
+<h3>Sites</h3>
+<% if @person.all_sites.empty? && @person.id == current_user.person.id %>
+  You currently to do not have any sites.  Use the <%= link_to 'site chooser', site_chooser_person_path(@person) %> to select one.
+<% elsif @person.all_sites.empty? %>
+  No sites.
+<% else %>
+  <table class="table table-striped">
+    <tr>
+      <th>Street</th>
+      <th>City</th>
+      <th>Zipcode</th>
+      <th>Role</th>
+      <th>Harvest Permission</th>
+      <th></th>
+      <% if user_signed_in? && current_user.admin? %>
+        <th></th>
+        <th></th>
+      <% end %>
+    </tr>
+
+  <% @person.all_sites.each do |site| %>
+    <tr>
+      <td><%= site.site_name %></td>
+      <td><%= site.city %></td>
+      <td><%= site.zipcode %></td>
+      <td><%= @person.site_role(site) %></td>
+      <td><%= site.status %></td>
+      <td><%= link_to 'Go', site, :class => 'btn btn-mini btn-primary' %></td>
+      <% if user_signed_in? && current_user.admin? %>
+        <td><%= link_to 'Edit', edit_site_path(site), :class => 'btn btn-mini' %></td>
+        <td><%= link_to 'Delete', site, method: :delete, data: { confirm: 'Are you sure?' }, :class => 'btn btn-mini btn-danger' %></td>
+      <% end %>
+    </tr>
+  <% end %>
+  </table>
+<% end %>
+
+
 
 
 

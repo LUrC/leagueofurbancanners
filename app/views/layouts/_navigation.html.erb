@@ -27,7 +27,8 @@
             <li><%= link_to "CMS Management", "/cms-admin" %></li>
             <li class="divider">&mdash;</li>
           <%- end %>
-          <li><%= link_to('My Account', edit_user_registration_path) %></li>
+          <li><%= link_to('My Account', person_path(current_user.person)) %></li>
+          <li><%= link_to('Change Password', edit_user_registration_path) %></li>
           <li><%= link_to('Logout', destroy_user_session_path, :method=>'delete') %></li>
         </ul>
       </li>

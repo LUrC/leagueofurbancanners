@@ -27,7 +27,8 @@ class HarvestsController < ApplicationController
   # GET /harvests/new.json
   def new
     @harvest = Harvest.new
-    @harvest.fruit_tree_id = params[:fruit_tree_id] if params[:fruit_tree_id]
+    @harvest.fruit_tree = FruitTree.find(params[:fruit_tree_id]) if params[:fruit_tree_id]
+    @harvest.leader = current_user.person
 
     respond_to do |format|
       format.html # new.html.erb

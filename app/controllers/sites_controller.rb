@@ -104,11 +104,11 @@ class SitesController < ApplicationController
     end
     respond_to do |format|
       if @site.save && @site.lurc_contact_id == @person.id
-        format.html { redirect_to @site, notice: 'Congratulations, you are now the coordinator of this site.' }
-        format.json { render json: @site, location: @site }
+        format.html { redirect_to @person, notice: "Congratulations, you are now the coordinator of #{@site.address}." }
+        format.json { render json: @person, location: @person }
       else
-        format.html { redirect_to @site, notice: "There was an error setting you as coordinator. #{error}" }
-        format.json { render json: @site.errors }
+        format.html { redirect_to site_chooser_person_path(@person), notice: "There was an error setting you as coordinator of #{@site.address}. #{error}" }
+        format.json { render json: "#{error}" }
       end
     end
   end
