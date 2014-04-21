@@ -28,6 +28,22 @@
     <div class="controls"><%= f.text_field :email %></div>
   </div>
   <div class="control-group">
+    <%= f.label :street_number, :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :street_number %></div>
+  </div>
+  <div class="control-group">
+      <%= f.label :street_name, :class => 'control-label' %>
+      <div class="controls"><%= f.text_field :street_name %></div>
+    </div>
+  <div class="control-group">
+    <%= f.label :city, :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :city %></div>
+  </div>
+  <div class="control-group">
+    <%= f.label :zipcode, :class => 'control-label' %>
+    <div class="controls"><%= f.text_field :zipcode %></div>
+  </div>
+  <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
       <%= f.collection_select :user_id, User.all, :id, :email, :include_blank => 'Link with a user account' %>
