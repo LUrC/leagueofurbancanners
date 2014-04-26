@@ -3,13 +3,13 @@ class PersonMailer < ActionMailer::Base
 
   SUBJECT_PREFIX = "[LURC] "
 
-  def harvesting_reminder(harvest, harvesting, message, to_person, from_person)
-    @harvest = harvest
+  def harvesting_reminder(harvesting, message, from_person)
+    @harvest = harvesting.harvest
     @harvesting = harvesting
     @message = message
-    @to_person = to_person
+    @to_person = harvesting.harvester
     @from_person = from_person
-    mail(:to => to_person.email, :from => from_person.email, :subject => SUBJECT_PREFIX + "Harvest Reminder")
+    mail(:to => @to_person.email, :from => @from_person.email, :subject => SUBJECT_PREFIX + "Harvest Reminder")
   end
 
   def harvest_reminder(harvest, message, from_person, include_waitlist=false)

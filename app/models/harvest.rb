@@ -10,6 +10,8 @@ class Harvest < ActiveRecord::Base
   has_many :cannings, :through => :canning_sessions
   has_many :canners, :through => :cannings, :class_name => "Person"
 
+  before_save :default_harvesters_canners
+
   def harvest_name
     fruit_tree.tree_name + " " + date.to_s(:human)
   end
@@ -38,5 +40,10 @@ class Harvest < ActiveRecord::Base
     harvesters[harvesters_needed..-1]
   end
 
+  private
+  def default_harvesters_canners
+    self.harvesters_needed = 2 unless harvesters_needed
+    self.canners_needed = 1 unless canners_needed
+  end
 
 end

@@ -105,4 +105,21 @@ class HarvestingsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+    #GET /harvest/1/harvestings/1/reminder
+  def reminder
+    @harvesting = Harvesting.find(params[:harvesting_id])
+  end
+
+  # POST /harvestings/1/send_reminder
+  def send_reminder
+    @harvesting = Harvesting.find(params[:harvesting_id])
+    @message = params[:message]
+    @from = current_user.person
+    PersonMailer.harvesting_reminder(@harvesting, @message, @from).deliver
+    respond_to do |format|
+        format.html { redirect_to @harvesting.harvest, notice: 'Reminder was successfully sent.' }
+        format.json { render json: @harvesting.harvest, location: @harvest }
+    end
+  end
 end

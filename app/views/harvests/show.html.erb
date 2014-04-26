@@ -86,7 +86,7 @@
       <td><%= link_to 'Cancel', harvest_harvesting_path(@harvest, harvesting, :person_id => current_user.person.id), method: :delete, data: { confirm: 'Are you sure?  If you are canceling close to the harvest date, please email the organizer to let them know.' }, :class => 'btn btn-mini btn-danger' %></td>
     <% end %>
     <% if current_user.person.id == @harvest.leader.id %>
-      <td><%= link_to 'Email', '#', :class => 'btn btn-mini' %></td>
+      <td><%= link_to 'Email', harvest_harvesting_reminder_path(@harvest, harvesting), :class => 'btn btn-mini' %></td>
     <% end %>
   </tr>
 <% end %>
