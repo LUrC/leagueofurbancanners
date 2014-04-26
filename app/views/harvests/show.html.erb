@@ -109,7 +109,7 @@
 
 <p>
 <% if current_user.person.id == @harvest.leader.id %>
-  <%= link_to 'Email the Harvesters', '#', :class => 'btn btn-primary' %>  <%= link_to 'Email the waitlist', '#', :class => 'btn btn-primary' %>
+  <%= link_to 'Email the Harvesters', reminder_harvest_path(@harvest), :class => 'btn btn-primary' %>
 <% end %>
 </p>
 

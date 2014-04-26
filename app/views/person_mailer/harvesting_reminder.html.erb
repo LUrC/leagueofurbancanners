@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>Dear <%= @to_person.full_name %>,</p>
+    <p><%= @message %></p>
+    <p>- <%= @from_person.full_name %></p>
+
+    <h4>Harvest Info</h4>
+    <p><%= @harvest.harvest_name %></p>
+    <p>Your Status: <%= @harvesting.status %></p>
+  </body>
+</html>

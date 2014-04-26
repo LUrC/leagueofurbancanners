@@ -1,0 +1,13 @@
+<%= form_tag send_reminder_harvest_path(@harvest) do %>
+  <p>Dear Harvesters,</p>
+  <div class="controls"><%= text_area_tag :message %></div>
+  <p>- <%= current_user.person.full_name %></p>
+
+  <h4>Harvest Info</h4>
+  <p><%= @harvest.harvest_name %></p>
+    <% @harvest.harvestings.each do |harvesting| %>
+      <p><%= harvesting.harvester.full_name %>: <%= harvesting.status %></p>
+    <% end %>
+
+  <%= submit_tag "Send" %>
+<% end %>

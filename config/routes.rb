@@ -7,7 +7,14 @@ Lurc::Application.routes.draw do
   resources :cannings
   resources :canning_sessions
   resources :harvests do
-      resources :harvestings
+      resources :harvestings do
+        get 'reminder'
+        post 'send_reminder'
+      end
+      member do
+        get 'reminder'
+        post 'send_reminder'
+      end
   end
   resources :status_checks
   resources :fruit_trees
@@ -29,6 +36,8 @@ Lurc::Application.routes.draw do
         get 'merge'
         post 'commit_merge'
         get 'site_chooser'
+        get 'reminder'
+        post 'send_reminder'
     end
   end
 

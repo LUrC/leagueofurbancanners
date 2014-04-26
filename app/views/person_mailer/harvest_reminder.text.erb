@@ -1,0 +1,12 @@
+Dear Harvesters,
+
+<%= @message %>
+
+- <%= @from_person.full_name %>
+
+== Harvest Info ==
+Date and Time: <%= @harvest.harvest_name %>
+Status:
+    <% @harvest.harvestings.each do |harvesting| %>
+        <%= harvesting.harvester.full_name %>: <%= harvesting.status %>
+    <% end %>

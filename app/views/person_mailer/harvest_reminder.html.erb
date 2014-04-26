@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>Dear Harvesters,</p>
+    <p><%= @message %></p>
+    <p>- <%= @from_person.full_name %></p>
+
+    <h4>Harvest Info</h4>
+    <p><%= @harvest.harvest_name %></p>
+    <% @harvest.harvestings.each do |harvesting| %>
+      <p><%= harvesting.harvester.full_name %>: <%= harvesting.status %></p>
+    <% end %>
+  </body>
+</html>
