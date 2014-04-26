@@ -1,6 +1,7 @@
 class Site < ActiveRecord::Base
   attr_accessible :city, :latitude, :longitude, :lurc_contact_id, :note, :owner_id, :secondary_owner_id, :status, :street, :zipcode
   attr_accessible :lat, :lon, :gmaps, :street_number, :street_name, :owner_contacted
+  attr_accessible :rating
   # geocoded_by :address
   # after_validation :geocode, :if => :street_changed? || :city_changed? || :zipcode_changed?
 
@@ -41,6 +42,15 @@ class Site < ActiveRecord::Base
   @@SITE_FILTERS = ['Coordinated', 'Not Coordinated']
   def self.SITE_FILTERS
       @@SITE_FILTERS
+  end
+
+  @@RATINGS = [{:value => 0, :description => "Unrated"},
+               {:value => 1, :description => "Unusable"},
+               {:value => 2, :description => "Unknown, Uncontacted, Iffy Fruit"},
+               {:value => 3, :description => "Good or Good Potential"},
+               {:value => 4, :description => "Contacted, Harvested, Good Fruit"}]
+  def self.RATINGS
+    @@RATINGS
   end
 
   def self.zipcodes

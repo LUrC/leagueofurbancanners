@@ -11,11 +11,11 @@
     </div>
   <% end %>
 
-  <div class="control-group"> 
+  <div class="control-group">
       <%= f.label :street_number, :class => 'control-label' %>
       <div class="controls"><%= f.text_field :street_number %></div>
     </div>
-    <div class="control-group"> 
+    <div class="control-group">
         <%= f.label :street_name, :class => 'control-label' %>
         <div class="controls"><%= f.text_field :street_name %></div>
       </div>
@@ -117,6 +117,21 @@
     <%= f.label 'Harvest Permission', :class => 'control-label' %>
     <div class="controls"><%= f.select :status, Site.STATUSES %></div>
   </div>
+  <% if current_user.admin? %>
+    <div class="control-group">
+    <%= f.label 'Rating', :class => 'control-label' %>
+    <div class="controls">
+      <% Site.RATINGS[1..-1].each do |rating| %>
+        <%= rating[:value] %>: <%= f.radio_button :rating, rating[:value], {:checked => @site.rating == rating[:value]} %>
+      <% end %>
+    </div>
+    <div class="controls">
+      <% Site.RATINGS.each do |rating| %>
+        <%= rating[:value] %>: <%= rating[:description] %>,
+      <% end %>
+    </div>
+  </div>
+  <% end %>
   <div class="control-group">
     <%= f.label :fruit_trees, :class => 'control-label' %>
   </div>
@@ -128,7 +143,7 @@
         </div>
         <div class="control-group">
           <%= ff.label 'Season Start', :class => 'control-label' %>
-          <div class="controls"><%= ff.select(:season_start_month, MONTHS, :include_blank => true) %>  
+          <div class="controls"><%= ff.select(:season_start_month, MONTHS, :include_blank => true) %>
           <%= ff.select(:season_start_day, (1..31).to_a, :include_blank => true ) %>
           <% if !fruit_tree.fruit.nil? %>
             <span class="inline-help">Default fruit start date is <%= fruit_tree.fruit.season_start_month %> <%= fruit_tree.fruit.season_start_day %></span>

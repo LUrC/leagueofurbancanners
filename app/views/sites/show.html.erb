@@ -37,6 +37,11 @@
 </p>
 
 <p>
+  <b>Rating:</b>
+  <%= Site.RATINGS[@site.rating][:value] %> -- <%= Site.RATINGS[@site.rating][:description] %>
+</p>
+
+<p>
   <b>Note:</b>
   <%= @site.note %>
 </p>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140417182814) do
+ActiveRecord::Schema.define(:version => 20140426113617) do
 
   create_table "blog_comments", :force => true do |t|
     t.integer  "post_id",                         :null => false
@@ -288,6 +288,7 @@ ActiveRecord::Schema.define(:version => 20140417182814) do
     t.integer  "street_number"
     t.string   "street_name"
     t.boolean  "owner_contacted",    :default => false
+    t.integer  "rating"
   end
 
   create_table "status_checks", :force => true do |t|
