@@ -38,7 +38,7 @@
 
 <p>
   <b>Rating:</b>
-  <%= Site.RATINGS[@site.rating][:value] %> -- <%= Site.RATINGS[@site.rating][:description] %>
+  <%= Site.RATINGS[@site.rating || 0][:value] %> -- <%= Site.RATINGS[@site.rating || 0][:description] %>
 </p>
 
 <p>
