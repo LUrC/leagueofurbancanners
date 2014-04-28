@@ -2,10 +2,14 @@
 
 one:
   name: MyString
-  season_start: 2012-11-15 13:10:10
-  season_end: 2012-11-15 13:10:10
+  season_start_month: July
+  season_start_day: 1
+  season_end_month: August
+  season_end_day: 1
 
 two:
   name: MyString
-  season_start: 2012-11-15 13:10:10
-  season_end: 2012-11-15 13:10:10
+  season_start_month: August
+  season_start_day: 1
+  season_end_month: September
+  season_end_day: 1

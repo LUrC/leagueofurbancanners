@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class SitesControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @site = sites(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class SitesControllerTest < ActionController::TestCase
 
   test "should create site" do
     assert_difference('Site.count') do
-      post :create, site: { city: @site.city, latitude: @site.latitude, longitude: @site.longitude, lurc_contact_id: @site.lurc_contact_id, note: @site.note, owner_id: @site.owner_id, secondary_owner_id: @site.secondary_owner_id, status: @site.status, street: @site.street, zipcode: @site.zipcode }
+      post :create, site: { city: @site.city, lurc_contact_id: @site.lurc_contact_id, note: @site.note, owner_id: @site.owner_id, secondary_owner_id: @site.secondary_owner_id, status: @site.status, street_name: @site.street_name, street_number: @site.street_number, zipcode: @site.zipcode, gmaps: true }
     end
 
     assert_redirected_to site_path(assigns(:site))
@@ -35,7 +40,7 @@ class SitesControllerTest < ActionController::TestCase
   end
 
   test "should update site" do
-    put :update, id: @site, site: { city: @site.city, latitude: @site.latitude, longitude: @site.longitude, lurc_contact_id: @site.lurc_contact_id, note: @site.note, owner_id: @site.owner_id, secondary_owner_id: @site.secondary_owner_id, status: @site.status, street: @site.street, zipcode: @site.zipcode }
+    put :update, id: @site, site: { city: @site.city, lurc_contact_id: @site.lurc_contact_id, note: @site.note, owner_id: @site.owner_id, secondary_owner_id: @site.secondary_owner_id, status: @site.status, street_name: @site.street_name, street_number: @site.street_number, zipcode: @site.zipcode }
     assert_redirected_to site_path(assigns(:site))
   end
 

@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  harvest_id: 1
-  person_id: 1
+  harvest: one
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   hours: 1
 
 two:
-  harvest_id: 1
-  person_id: 1
+  harvest: two
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>
   hours: 1

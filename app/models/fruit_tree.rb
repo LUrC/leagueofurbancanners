@@ -13,10 +13,6 @@ class FruitTree < ActiveRecord::Base
   def self.by_street
     joins(:site).order('sites.street_name asc, sites.street_number asc')
   end
-  # validates :season_start_month, :inclusion => { :in => MONTHS }, :allow_nil => true
-  # validates :season_end_month,  :inclusion => { :in => MONTHS }, :allow_nil => true
-  # validates :season_start_day, :inclusion => { :in => (1..31).to_a }, :allow_nil => true
-  # validates :season_end_day,  :inclusion => { :in => (1..31).to_a }, :allow_nil => true
 
   def longitude
       site.lon

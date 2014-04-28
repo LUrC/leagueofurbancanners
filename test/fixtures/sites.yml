@@ -4,22 +4,24 @@ one:
   street: MyString
   city: MyString
   zipcode: MyString
-  latitude: MyString
-  longitude: MyString
-  owner_id: 1
-  secondary_owner_id: 1
-  lurc_contact_id: 1
+  owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  secondary_owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  lurc_contact_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   note: MyText
   status: MyString
+  street_name: MyString
+  street_number: 1
+  gmaps: true
 
 two:
   street: MyString
   city: MyString
   zipcode: MyString
-  latitude: MyString
-  longitude: MyString
-  owner_id: 1
-  secondary_owner_id: 1
-  lurc_contact_id: 1
+  owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  secondary_owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  lurc_contact_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   note: MyText
   status: MyString
+  street_name: MyString
+  street_number: 2
+  gmaps: true

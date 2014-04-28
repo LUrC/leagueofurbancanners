@@ -16,7 +16,7 @@
 
 <% @cannings.each do |canning| %>
   <tr>
-    <td><%= canning.canning_session.name %></td>
+    <td><%= canning.canning_session.session_name %></td>
     <td><%= canning.canner.full_name %></td>
     <td><%= canning.hours %></td>
     <td><%= link_to 'Learn More', canning, :class => 'btn btn-mini' %></td>

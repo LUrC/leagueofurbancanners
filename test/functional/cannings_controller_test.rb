@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class CanningsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @canning = cannings(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class CanningsControllerTest < ActionController::TestCase
 
   test "should create canning" do
     assert_difference('Canning.count') do
-      post :create, canning: { canner_id: @canning.canner_id, canning_session_id: @canning.canning_session_id, hours_integer: @canning.hours_integer }
+      post :create, canning: { canner_id: @canning.canner_id, canning_session_id: @canning.canning_session_id, hours: @canning.hours }
     end
 
     assert_redirected_to canning_path(assigns(:canning))
@@ -35,7 +40,7 @@ class CanningsControllerTest < ActionController::TestCase
   end
 
   test "should update canning" do
-    put :update, id: @canning, canning: { canner_id: @canning.canner_id, canning_session_id: @canning.canning_session_id, hours_integer: @canning.hours_integer }
+    put :update, id: @canning, canning: { canner_id: @canning.canner_id, canning_session_id: @canning.canning_session_id, hours: @canning.hours }
     assert_redirected_to canning_path(assigns(:canning))
   end
 

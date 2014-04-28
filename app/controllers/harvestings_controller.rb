@@ -62,11 +62,10 @@ class HarvestingsController < ApplicationController
             redirect_to new_harvest_harvesting_path(@harvest), notice: "Logged harvester's work successfully."
           elsif params[:commit] == "Log Work"
             redirect_to @harvesting.harvest, notice: "Logged harvester's work successfully."
-          elsif
-            redirect_to @harvesting.harvest, notice: "Harvesting created."
+          else
+            redirect_to  @harvesting.harvest, notice: "Harvesting created."
           end
         end
-        format.json { render json: @harvesting, status: :created, location: @harvesting }
       else
         format.html { render action: "new" }
         format.json { render json: @harvesting.errors, status: :unprocessable_entity }
@@ -82,11 +81,11 @@ class HarvestingsController < ApplicationController
     respond_to do |format|
       if @harvesting.update_attributes(params[:harvesting])
         if params[:commit] == "Log Work and Add Another"
-          redirect_to new_harvest_harvesting_path(@harvest), notice: "Updated harvester's work successfully."
+          format.html { redirect_to new_harvest_harvesting_path(@harvest), notice: "Updated harvester's work successfully." }
         else
-          redirect_to @harvesting.harvest, notice: "Updated harvester's work successfully."
+          format.html { redirect_to @harvesting.harvest, notice: "Updated harvester's work successfully." }
         end
-        format.json { head :no_content }
+        format.json { render json: @harvesting, location: @harvesting }
       else
         format.html { render action: "edit" }
         format.json { render json: @harvesting.errors, status: :unprocessable_entity }

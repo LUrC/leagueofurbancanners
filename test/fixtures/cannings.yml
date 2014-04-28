@@ -1,11 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  canning_session_id: 1
-  canner_id: 1
-  hours_integer: MyString
+  canning_session: one
+  canner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: MyString
 
 two:
-  canning_session_id: 1
-  canner_id: 1
-  hours_integer: MyString
+  canning_session: two
+  canner_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>
+  hours: MyString

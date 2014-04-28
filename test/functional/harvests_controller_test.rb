@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class HarvestsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @harvest = harvests(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class HarvestsControllerTest < ActionController::TestCase
 
   test "should create harvest" do
     assert_difference('Harvest.count') do
-      post :create, harvest: { amount_harvested: @harvest.amount_harvested, canners_needed: @harvest.canners_needed, date: @harvest.date, description: @harvest.description, fruit_tree_id: @harvest.fruit_tree_id, harvesters_needed: @harvest.harvesters_needed, leader_id: @harvest.leader_id, notes: @harvest.notes, tentative_date: @harvest.tentative_date }
+      post :create, harvest: { amount_harvested: @harvest.amount_harvested, canners_needed: @harvest.canners_needed, date: @harvest.date, description: @harvest.description, fruit_tree_id: @harvest.fruit_tree_id, harvesters_needed: @harvest.harvesters_needed, leader_id: @harvest.leader_id, notes: @harvest.notes }
     end
 
     assert_redirected_to harvest_path(assigns(:harvest))
@@ -35,7 +40,7 @@ class HarvestsControllerTest < ActionController::TestCase
   end
 
   test "should update harvest" do
-    put :update, id: @harvest, harvest: { amount_harvested: @harvest.amount_harvested, canners_needed: @harvest.canners_needed, date: @harvest.date, description: @harvest.description, fruit_tree_id: @harvest.fruit_tree_id, harvesters_needed: @harvest.harvesters_needed, leader_id: @harvest.leader_id, notes: @harvest.notes, tentative_date: @harvest.tentative_date }
+    put :update, id: @harvest, harvest: { amount_harvested: @harvest.amount_harvested, canners_needed: @harvest.canners_needed, date: @harvest.date, description: @harvest.description, fruit_tree_id: @harvest.fruit_tree_id, harvesters_needed: @harvest.harvesters_needed, leader_id: @harvest.leader_id, notes: @harvest.notes }
     assert_redirected_to harvest_path(assigns(:harvest))
   end
 

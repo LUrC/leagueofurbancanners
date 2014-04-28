@@ -1,4 +1,4 @@
-<%= form_for(@harvesting, :html => {:class => 'form-horizontal'}) do |f| %>
+<%= form_for([@harvesting.harvest, @harvesting], :html => {:class => 'form-horizontal'}) do |f| %>
   <% if @harvesting.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@harvesting.errors.count, "error") %> prohibited this harvesting from being saved:</h2>

@@ -1,9 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  fruit_tree_id: 1
+  fruit_tree: one
   date: 2013-01-07 20:26:41
 
 two:
-  fruit_tree_id: 1
+  fruit_tree: two
   date: 2013-01-07 20:26:41

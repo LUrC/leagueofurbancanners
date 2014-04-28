@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class StatusChecksControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @status_check = status_checks(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @person = people(:personone)
+    sign_in @person.user
   end
 
   test "should get index" do

@@ -64,6 +64,7 @@ class FruitsController < ApplicationController
         format.html { redirect_to @fruit, notice: 'Fruit was successfully updated.' }
         format.json { head :no_content }
       else
+        puts @fruit.errors.full_messages.join('\n')
         format.html { render action: "edit" }
         format.json { render json: @fruit.errors, status: :unprocessable_entity }
       end

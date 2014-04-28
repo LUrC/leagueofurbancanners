@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class PruningsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @pruning = prunings(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do

@@ -1,8 +1,13 @@
 require 'test_helper'
 
 class FruitsControllerTest < ActionController::TestCase
+  include Devise::TestHelpers
+
   setup do
     @fruit = fruits(:one)
+    @request.env["devise.mapping"] = Devise.mappings[:admin]
+    @user = users(:one)
+    sign_in @user
   end
 
   test "should get index" do
@@ -18,7 +23,7 @@ class FruitsControllerTest < ActionController::TestCase
 
   test "should create fruit" do
     assert_difference('Fruit.count') do
-      post :create, fruit: { name: @fruit.name, season_end: @fruit.season_end, season_start: @fruit.season_start }
+      post :create, fruit: { name: @fruit.name, season_end_month: @fruit.season_end_month, season_end_day: @fruit.season_end_day, season_start_month: @fruit.season_start_month, season_start_day: @fruit.season_start_day }
     end
 
     assert_redirected_to fruit_path(assigns(:fruit))
@@ -35,7 +40,7 @@ class FruitsControllerTest < ActionController::TestCase
   end
 
   test "should update fruit" do
-    put :update, id: @fruit, fruit: { name: @fruit.name, season_end: @fruit.season_end, season_start: @fruit.season_start }
+    put :update, id: @fruit, fruit: { name: @fruit.name, season_end_month: @fruit.season_end_month, season_end_day: @fruit.season_end_day, season_start_month: @fruit.season_start_month, season_start_day: @fruit.season_start_day }
     assert_redirected_to fruit_path(assigns(:fruit))
   end
 
