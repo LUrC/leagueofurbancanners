@@ -86,4 +86,12 @@ class Person < ActiveRecord::Base
     harvestings.select { |h| h.harvest.upcoming? }
   end
 
+  def past_harvests
+    past_harvestings.map(&:harvest)
+  end
+
+  def upcoming_harvests
+    upcoming_harvestings.map(&:harvest)
+  end
+
 end

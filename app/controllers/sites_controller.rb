@@ -75,7 +75,7 @@ class SitesController < ApplicationController
     end
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html # map.html.erb
       format.json { render json: @sites }
     end
   end
@@ -91,6 +91,7 @@ class SitesController < ApplicationController
     end
   end
 
+  # GET /sites/1/coordinate
   def coordinate
     if (params[:person_id])
       @person = Person.find(params[:person_id])
@@ -103,7 +104,10 @@ class SitesController < ApplicationController
       end
     end
     respond_to do |format|
-      if @site.save && @site.lurc_contact_id == @person.id
+      if !@person
+        format.html { redirect_to site_path(@site), notice: "Cannot set the coordinator without a person to set it to." }
+        format.json { render json: "Cannot set the coordinator without a person to set it to." }
+      elsif @site.save && @site.lurc_contact_id == @person.id
         format.html { redirect_to @person, notice: "Congratulations, you are now the coordinator of #{@site.address}." }
         format.json { render json: @person, location: @person }
       else

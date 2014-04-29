@@ -9,3 +9,8 @@ two:
   harvest: two
   harvester_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>
   hours: 1
+
+three:
+  harvest: three
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: 1

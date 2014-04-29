@@ -16,6 +16,14 @@ class HarvestsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:harvests)
   end
 
+  test "should get harvests for person if person param present" do
+    person = people(:personone)
+    get :index, :person_id => person
+    assert_not_nil assigns(:person)
+    assert_equal(person.upcoming_harvests, assigns(:upcoming_harvests))
+    assert_equal(person.past_harvests, assigns(:past_harvests))
+  end
+
   test "should get new" do
     get :new
     assert_response :success
@@ -37,6 +45,19 @@ class HarvestsControllerTest < ActionController::TestCase
   test "should get edit" do
     get :edit, id: @harvest
     assert_response :success
+  end
+
+  test "should get reminder" do
+    get :reminder, id: @harvest
+    assert_response :success
+    assert_not_nil assigns(:harvest)
+  end
+
+  test "should send reminder" do
+    post :send_reminder, id: @harvest, :message => 'Foo'
+    assert_equal 'Foo', assigns(:message)
+    assert_equal @user.person.id, assigns(:from).id
+    assert !ActionMailer::Base.deliveries.empty?
   end
 
   test "should update harvest" do

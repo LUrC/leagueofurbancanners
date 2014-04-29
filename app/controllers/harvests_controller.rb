@@ -8,8 +8,8 @@ class HarvestsController < ApplicationController
 
     if params[:person_id]
       @person = Person.find(params[:person_id])
-      @upcoming_harvests = @person.upcoming_harvestings.map(&:harvest)
-      @past_harvests = @person.past_harvestings.map(&:harvest)
+      @upcoming_harvests = @person.upcoming_harvests
+      @past_harvests = @person.past_harvests
     end
 
     respond_to do |format|

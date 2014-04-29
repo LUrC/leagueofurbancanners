@@ -1,7 +1,7 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  street: MyString
+  street: Lowell
   city: MyString
   zipcode: MyString
   owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
@@ -14,12 +14,24 @@ one:
   gmaps: true
 
 two:
-  street: MyString
+  street: Sparks
   city: MyString
   zipcode: MyString
   owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   secondary_owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   lurc_contact_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  note: MyText
+  status: MyString
+  street_name: MyString
+  street_number: 2
+  gmaps: true
+
+three:
+  street: Brattle
+  city: MyString
+  zipcode: MyString
+  owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  secondary_owner_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   note: MyText
   status: MyString
   street_name: MyString

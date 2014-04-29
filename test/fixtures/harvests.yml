@@ -19,3 +19,13 @@ two:
   leader_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>
   amount_harvested: 1
   notes: MyText
+
+three:
+  description: MyText
+  harvesters_needed: 1
+  canners_needed: 1
+  date: 2015-11-15 13:19:38
+  fruit_tree: one
+  leader_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  amount_harvested: 1
+  notes: MyText

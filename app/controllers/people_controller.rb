@@ -77,12 +77,14 @@ class PeopleController < ApplicationController
   def commit_merge
       @person = Person.find(params[:id])
       @other_person = Person.find(params[:other_person_id])
-      if @person.merge_in(@other_person)
-        format.html { redirect_to @person, notice: 'Person was succesfully merged.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "merge"}
-        format.json { render json: @person.errors, status: :unprocessable_entity}
+      respond_to do |format|
+        if @person.merge_in(@other_person)
+          format.html { redirect_to @person, notice: 'Person was succesfully merged.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "merge"}
+          format.json { render json: @person.errors, status: :unprocessable_entity}
+        end
       end
   end
 
@@ -96,15 +98,18 @@ class PeopleController < ApplicationController
       @address = params[:address]
       coords = Geocoder.coordinates(params[:address])
       @choices = Site.closest_sites(coords[0], coords[1], 15)
+      @mapped = @choices
     elsif (!@person.lat || !@person.lon)
       s = Site.first
       @address = s.address
       @choices = Site.closest_sites(s.lat, s.lon, 15);
+      @mapped = @choices
     else
       @address = @person.address
       @choices = Site.closest_sites(@person.lat, @person.lon, 15);
+      @mapped = [@person] + @choices
     end
-    @map_json = ([@person] + @choices).to_gmaps4rails do |item, marker|
+    @map_json = @mapped.to_gmaps4rails do |item, marker|
       if item.is_a? Site
         marker.infowindow render_to_string(:partial => "sites/marker_info", :locals => { :site => item })
         marker.json({ :id => item.id, :link => site_path(item) })

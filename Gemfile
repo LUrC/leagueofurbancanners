@@ -31,3 +31,5 @@ group :assets do
 end
 
 gem 'jquery-rails'
+
+gem 'simplecov', '~> 0.7.1', :require => false, :group => :test

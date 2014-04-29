@@ -10,6 +10,7 @@ class HarvestingsController < ApplicationController
       @parent = Person.find(params[:person_id])
       @harvestings = @parent.harvestings
     else
+      #should not get here
       @harvestings = Harvesting.all
     end
 
@@ -52,8 +53,8 @@ class HarvestingsController < ApplicationController
   # POST /harvestings
   # POST /harvestings.json
   def create
-    logger.debug(params)
     @harvesting = Harvesting.new(params[:harvesting])
+    @harvest = @harvesting.harvest
 
     respond_to do |format|
       if @harvesting.save
@@ -77,6 +78,7 @@ class HarvestingsController < ApplicationController
   # PUT /harvestings/1.json
   def update
     @harvesting = Harvesting.find(params[:id])
+    @harvest = @harvesting.harvest
 
     respond_to do |format|
       if @harvesting.update_attributes(params[:harvesting])
@@ -105,7 +107,7 @@ class HarvestingsController < ApplicationController
     end
   end
 
-    #GET /harvest/1/harvestings/1/reminder
+  #GET /harvest/1/harvestings/1/reminder
   def reminder
     @harvesting = Harvesting.find(params[:harvesting_id])
   end
