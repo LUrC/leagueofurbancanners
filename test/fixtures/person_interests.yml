@@ -1,0 +1,8 @@
+
+one:
+  interest: one
+  person_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+
+two:
+  interest: two
+  person_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>

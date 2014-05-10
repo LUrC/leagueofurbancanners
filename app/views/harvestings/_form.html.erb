@@ -17,7 +17,7 @@
   </div>
   <div class="control-group">
     <%= f.label :harvester_id, :class => 'control-label'%>
-    <div class="controls"><%= f.collection_select :harvester_id, Person.all, :id, :full_name %></div>
+    <div class="controls"><%= f.collection_select :harvester_id, Person.all, :id, :full_name, {:include_blank => 'Unknown'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :hours, :class => 'control-label' %>

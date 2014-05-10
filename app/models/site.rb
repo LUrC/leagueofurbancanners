@@ -16,8 +16,6 @@ class Site < ActiveRecord::Base
   has_many :harvests, :through => :fruit_trees
   has_many :prunings, :through => :fruit_trees
 
-  before_save :set_coordinator
-
   scope :has_fruit_in, lambda { |fruit_ids| joins(:fruit_trees).where("fruit_trees.fruit_id in (?)", fruit_ids) }
 
   # Bad practice to accept nested attributes for a parent, but forms are set up so that only new owners can/will be selected
@@ -59,9 +57,9 @@ class Site < ActiveRecord::Base
 
   def self.filter_sites_by(sites, site_filter)
       if (site_filter == 'Coordinated')
-          sites.reject { |s| !s.lurc_contact || s.lurc_contact.full_name == "Unknown Unknown" }
+          sites.reject { |s| s.lurc_contact_id == nil }
       elsif (site_filter == 'Not Coordinated')
-          sites.select { |s| !s.lurc_contact || s.lurc_contact.full_name == "Unknown Unknown" }
+          sites.select { |s| s.lurc_contact_id == nil }
       else
           sites
       end
@@ -75,7 +73,7 @@ class Site < ActiveRecord::Base
     if (include_coordinated)
       sites = Site.find_by_sql(["SELECT id, lat, lon, POW(69.1 * (lat - ?), 2) + POW(69.1 * (? - lon) * COS(lat / 57.3), 2) AS distance FROM sites ORDER BY distance LIMIT ?;", centerlat, centerlng, limit])
     else
-      sites = Site.find_by_sql(["SELECT id, lat, lon, POW(69.1 * (lat - ?), 2) + POW(69.1 * (? - lon) * COS(lat / 57.3), 2) AS distance FROM sites WHERE lurc_contact_id is null OR lurc_contact_id=30 ORDER BY distance LIMIT ?;", centerlat, centerlng, limit])
+      sites = Site.find_by_sql(["SELECT id, lat, lon, POW(69.1 * (lat - ?), 2) + POW(69.1 * (? - lon) * COS(lat / 57.3), 2) AS distance FROM sites WHERE lurc_contact_id is null ORDER BY distance LIMIT ?;", centerlat, centerlng, limit])
     end
     sites = sites.collect { |s| Site.find(s.id) }
   end
@@ -113,7 +111,7 @@ class Site < ActiveRecord::Base
   def owner_contact_status
     if !owner
       "owner unknown"
-    elsif (owner.full_name == "Unknown Unknown" || owner.full_name.blank?) && owner.phone.blank? && owner.email.blank?
+    elsif (owner.full_name.blank?) && owner.phone.blank? && owner.email.blank?
       "no contact info"
     elsif owner.phone.blank? && owner.email.blank?
       "name only"
@@ -128,9 +126,16 @@ class Site < ActiveRecord::Base
     end
   end
 
-  private
-    def set_coordinator
-      self.lurc_contact ||= Person.where(:first_name => "Unknown", :last_name => "Unknown").first
-    end
+  def owner_name
+    owner ? owner.full_name : 'Unknown'
+  end
+
+  def secondary_owner_name
+    secondary_owner ? secondary_owner.full_name : 'None'
+  end
+
+  def lurc_contact_name
+    lurc_contact ? lurc_contact.full_name : 'None'
+  end
 
 end

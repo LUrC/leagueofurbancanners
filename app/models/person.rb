@@ -2,19 +2,25 @@ class Person < ActiveRecord::Base
   attr_accessible :email, :first_name, :last_name, :phone
   attr_accessible :city, :latitude, :longitude, :zipcode
   attr_accessible :lat, :lon, :gmaps, :street_number, :street_name
+  attr_accessible :user_id
 
   geocoded_by :address, :latitude => :lat, :longitude => :lon
   after_validation :geocode
 
   default_scope order('last_name ASC, first_name ASC')
 
-  belongs_to :user, :dependent => :destroy  # deleting the person should delete the user
+  belongs_to :user
 
-  has_many :owned_sites, :class_name => 'Site', :foreign_key => 'owner_id'
-  has_many :secondary_owned_sites, :class_name => 'Site', :foreign_key => 'secondary_owner_id'
-  has_many :contact_sites, :class_name => 'Site', :foreign_key => 'lurc_contact_id'
+  has_many :owned_sites, :class_name => 'Site', :foreign_key => 'owner_id', :dependent => :nullify
+  has_many :secondary_owned_sites, :class_name => 'Site', :foreign_key => 'secondary_owner_id', :dependent => :nullify
+  has_many :contact_sites, :class_name => 'Site', :foreign_key => 'lurc_contact_id', :dependent => :nullify
   has_many :harvestings, :foreign_key => 'harvester_id', :include => :harvest, :order => 'harvests.date DESC, harvestings.id ASC'
   has_many :harvests, :through => :harvestings
+  has_many :person_interests
+  has_many :interests, :through => :person_interests
+
+  accepts_nested_attributes_for :person_interests, :allow_destroy => true
+  attr_accessible :person_interests_attributes
 
   validates_presence_of :last_name
   before_save :copy_email_from_user

@@ -60,7 +60,6 @@ class PeopleControllerTest < ActionController::TestCase
     assert_response :success
     assert_not_nil(assigns(:choices))
     assert_not_nil(assigns(:mapped))
-    assert_equal(@person.id, assigns(:mapped).first.id)
   end
 
   test "should accept address parameter in site chooser" do

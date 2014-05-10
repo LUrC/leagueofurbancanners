@@ -17,4 +17,8 @@ class Harvesting < ActiveRecord::Base
     end
   end
 
+  def harvester_name
+    harvester ? harvester.full_name : 'Unknown'
+  end
+
 end

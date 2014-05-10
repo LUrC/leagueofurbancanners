@@ -8,5 +8,5 @@ Dear Harvesters,
 Date and Time: <%= @harvest.harvest_name %>
 Status:
     <% @harvest.harvestings.each do |harvesting| %>
-        <%= harvesting.harvester.full_name %>: <%= harvesting.status %>
+        <%= harvesting.harvester_name %>: <%= harvesting.status %>
     <% end %>

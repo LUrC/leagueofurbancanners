@@ -40,6 +40,10 @@ class Harvest < ActiveRecord::Base
     harvesters[harvesters_needed..-1]
   end
 
+  def leader_name
+    leader ? leader.full_name : "Unknown"
+  end
+
   private
   def default_harvesters_canners
     self.harvesters_needed = 2 unless harvesters_needed

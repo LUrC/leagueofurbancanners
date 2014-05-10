@@ -34,7 +34,7 @@
 
 <p>
   <b>Leader:</b>
-  <%= link_to @harvest.leader.full_name, @harvest.leader %>
+  <%= link_to @harvest.leader_name, @harvest.leader %>
 </p>
 
 <% if !@harvest.upcoming? %>
@@ -130,7 +130,7 @@
 
 <% @harvest.canning_sessions.each do |canning_session| %>
   <tr>
-    <td><%= canning_session.leader.full_name %></td>
+    <td><%= canning_session.leader_name %></td>
     <td><%= canning_session.date.to_s :human %></td>
     <td><%= canning_session.amount_canned %></td>
     <td><%= canning_session.pints_canned %></td>

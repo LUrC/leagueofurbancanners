@@ -35,25 +35,40 @@
       <div class="controls"><%= ff.text_field :last_name %></div>
     </div>
     <div class="control-group">
-      <%= ff.label :phone, :class => 'control-label' %>
+      <%= ff.label 'phone (optional)', :class => 'control-label' %>
       <div class="controls"><%= ff.text_field :phone %></div>
     </div>
     <div class="control-group">
-      <%= ff.label :street_number, :class => 'control-label' %>
+      <%= ff.label 'street_number (optional)', :class => 'control-label' %>
       <div class="controls"><%= ff.text_field :street_number %></div>
     </div>
     <div class="control-group">
-        <%= ff.label :street_name, :class => 'control-label' %>
-        <div class="controls"><%= ff.text_field :street_name %></div>
-      </div>
+      <%= ff.label 'street_name (optional)', :class => 'control-label' %>
+      <div class="controls"><%= ff.text_field :street_name %></div>
+    </div>
     <div class="control-group">
-      <%= ff.label :city, :class => 'control-label' %>
+      <%= ff.label 'city (optional)', :class => 'control-label' %>
       <div class="controls"><%= ff.text_field :city %></div>
     </div>
     <div class="control-group">
-      <%= ff.label :zipcode, :class => 'control-label' %>
+      <%= ff.label 'zipcode (optional)', :class => 'control-label' %>
       <div class="controls"><%= ff.text_field :zipcode %></div>
     </div>
+
+    <div class="control-group">
+      <div class='control-label'>Interests</div>
+      <%= ff.fields_for :person_interests do |fff| %>
+        <div class="controls">
+          <%= fff.check_box :_destroy,
+                {:checked => fff.object.persisted?},
+                '0', '1'
+          %>
+          <%= fff.label :_destroy, fff.object.interest.name, :style => "display:inline-block;" %>
+          <%= fff.hidden_field :interest_id %>
+        </div>
+      <% end %>
+    </div>
+
   <% end %>
 
   <div class="controls"><%= f.submit "Sign up", :class => 'btn btn-primary' %></div>

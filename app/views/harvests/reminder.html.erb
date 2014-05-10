@@ -6,7 +6,7 @@
   <h4>Harvest Info</h4>
   <p><%= @harvest.harvest_name %></p>
     <% @harvest.harvestings.each do |harvesting| %>
-      <p><%= harvesting.harvester.full_name %>: <%= harvesting.status %></p>
+      <p><%= harvesting.harvester_name %>: <%= harvesting.status %></p>
     <% end %>
 
   <%= submit_tag "Send" %>

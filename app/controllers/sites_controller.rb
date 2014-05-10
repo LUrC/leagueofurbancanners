@@ -14,9 +14,9 @@ class SitesController < ApplicationController
     @zipcode_filters = session[:zipcode_filters]
 
     if (@fruit_ids)
-        @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+        @sites = Site.has_fruit_in(@fruit_ids).order(sort_column + ' ' + sort_direction)
     else
-        @sites = Site.joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+        @sites = Site.order(sort_column + ' ' + sort_direction)
     end
 
     if @site_filters
@@ -97,7 +97,7 @@ class SitesController < ApplicationController
       @person = Person.find(params[:person_id])
       @site = Site.find(params[:id])
       error = ""
-      if !@site.lurc_contact_id || @site.lurc_contact_id == 30
+      if !@site.lurc_contact_id
         @site.lurc_contact_id = @person.id
       else
         error = 'There is already a coordinator for this site.'

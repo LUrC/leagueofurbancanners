@@ -18,7 +18,7 @@
   <tr>
     <td><%= pruning.fruit_tree.tree_name if pruning.fruit_tree %></td>
     <td><%= pruning.date.to_s :human if pruning.date %></td>
-    <td><%= pruning.leader.full_name if pruning.leader %></td>
+    <td><%= pruning.leader_name if pruning.leader %></td>
     <td><%= link_to 'Learn More', pruning, :class => 'btn btn-mini' %></td>
     <% if user_signed_in? && current_user.organizer? %>
       <td><%= link_to 'Edit', edit_pruning_path(pruning), :class => 'btn btn-mini' %></td>

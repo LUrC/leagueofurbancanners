@@ -99,9 +99,9 @@ class PeopleController < ApplicationController
       coords = Geocoder.coordinates(params[:address])
       @choices = Site.closest_sites(coords[0], coords[1], 15)
       @mapped = @choices
-    elsif (!@person.lat || !@person.lon)
+    elsif (!@person.lat || !@person.lon || @person.city.blank?)
       s = Site.first
-      @address = s.address
+      @address = "Cambridge, MA"
       @choices = Site.closest_sites(s.lat, s.lon, 15);
       @mapped = @choices
     else

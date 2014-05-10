@@ -9,7 +9,7 @@
 
 <p>
   <b>Leader:</b>
-  <%= link_to @canning_session.leader.full_name, @canning_session.leader %>
+  <%= link_to @canning_session.leader_name, @canning_session.leader %>
 </p>
 
 <p>
@@ -48,7 +48,7 @@
 
 <% @canning_session.cannings.each do |canning| %>
   <tr>
-    <td><%= canning.canner.full_name %></td>
+    <td><%= canning.canner_name %></td>
     <td><%= canning.hours %></td>
     <td><%= link_to 'Learn More', canning, :class => 'btn btn-mini' %></td>
     <% if user_signed_in? && current_user.organizer? %>

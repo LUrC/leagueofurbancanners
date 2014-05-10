@@ -62,7 +62,7 @@
 <% @fruit_tree.harvests.upcoming.each do |harvest| %>
   <tr>
     <td><%= harvest.date.to_s :human %></td>
-    <td><%= harvest.leader.full_name %></td>
+    <td><%= harvest.leader_name %></td>
     <td><%= harvest.description %></td>
     <td><%= harvest.harvesters_needed %></td>
     <td><%= harvest.canners_needed %></td>
@@ -148,7 +148,7 @@
 <% @fruit_tree.harvests.past.each do |harvest| %>
   <tr>
     <td><%= harvest.date.to_s :human %></td>
-    <td><%= harvest.leader.full_name %></td>
+    <td><%= harvest.leader_name %></td>
     <td><%= harvest.description %></td>
     <td><%= harvest.harvesters_needed %></td>
     <td><%= harvest.canners_needed %></td>

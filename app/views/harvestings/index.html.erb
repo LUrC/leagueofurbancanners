@@ -17,7 +17,7 @@
 <% @harvestings.each do |harvesting| %>
   <tr>
     <td><%= harvesting.harvest.harvest_name %></td>
-    <td><%= harvesting.harvester.full_name %></td>
+    <td><%= harvesting.harvester_name %></td>
     <td><%= harvesting.hours %></td>
     <td><%= link_to 'Learn More', harvest_harvesting_path(harvesting.harvest, harvesting), :class => 'btn btn-mini' %></td>
     <% if user_signed_in? && current_user.organizer? %>
