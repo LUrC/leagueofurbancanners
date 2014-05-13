@@ -90,10 +90,10 @@ class PeopleController < ApplicationController
 
   def site_chooser
     @person = Person.find(params[:id]);
-    if (!@person.lat || !@person.lon)
-      @person.geocode
-      @person.save
-    end
+    # if (!@person.lat || !@person.lon)
+    #   @person.geocode
+    #   @person.save
+    # end
     if (params[:address])
       @address = params[:address]
       coords = Geocoder.coordinates(params[:address])
@@ -101,7 +101,7 @@ class PeopleController < ApplicationController
       @mapped = @choices
     elsif (!@person.lat || !@person.lon || @person.city.blank?)
       s = Site.first
-      @address = "Cambridge, MA"
+      @address = "Cambridge, MA 02139"
       @choices = Site.closest_sites(s.lat, s.lon, 15);
       @mapped = @choices
     else
