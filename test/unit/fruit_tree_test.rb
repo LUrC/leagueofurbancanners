@@ -20,5 +20,64 @@ class FruitTreeTest < ActiveSupport::TestCase
     assert_equal(@fruit_tree.gmaps4rails_title, @fruit_tree.tree_name)
   end
 
+  test "the class should be able to return all members sorted by street name" do
+    flunk
+  end
+
+  test "the fruit tree should return its gmaps4rails longitude when asked for longitude" do
+    flunk
+  end
+
+  test "the fruit tree should return its gmaps4rails latitude when asked for latitude" do
+    flunk
+  end
+
+  test "the tree should return the fruit season start month if it does not have one set" do
+    @fruit_tree.season_start_month = nil
+    assert_equal(@fruit_tree.start_month, @fruit_tree.fruit.season_start_month)
+  end
+
+  test "the tree should return the fruit seasons end month if it does not have one set" do
+    @fruit_tree.season_end_month = nil
+    assert_equal(@fruit_tree.end_month, @fruit_tree.fruit.season_end_month)
+  end
+
+  test "the tree should return the fruit season start day if it does not have one set" do
+    @fruit_tree.season_start_day = nil
+    assert_equal(@fruit_tree.start_day, @fruit_tree.fruit.season_start_day)
+  end
+
+  test "the tree should return the fruit season end day if it does not have one set" do
+    @fruit_tree.season_end_month = nil
+    assert_equal(@fruit_tree.end_month, @fruit_tree.fruit.season_end_month)
+  end
+
+  test "the tree should return the fruit season start month if it does have one set" do
+    @fruit_tree.season_start_month = "October"
+    assert_equal(@fruit_tree.start_month, @fruit_tree.season_start_month)
+  end
+
+  test "the tree should return the fruit seasons end month if it does have one set" do
+    @fruit_tree.season_end_month = "October"
+    assert_equal(@fruit_tree.end_month, @fruit_tree.season_end_month)
+  end
+
+  test "the tree should return the fruit season start day if it does have one set" do
+    @fruit_tree.season_start_day = 13
+    assert_equal(@fruit_tree.start_day, @fruit_tree.season_start_day)
+  end
+
+  test "the tree should return the fruit season end day if it does have one set" do
+    @fruit_tree.season_end_day = 13
+    assert_equal(@fruit_tree.end_day, @fruit_tree.season_end_day)
+  end
+
+  test "the season string should give a nicely formatted season" do
+    @fruit_tree.season_start_month = "October"
+    @fruit_tree.season_start_day = 1
+    @fruit_tree.season_end_month = "November"
+    @fruit_tree.season_end_day = 13
+    assert_equal(@fruit_tree.season_string, "October 1-November 13")
+  end
 
 end

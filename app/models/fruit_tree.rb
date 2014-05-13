@@ -83,8 +83,4 @@ class FruitTree < ActiveRecord::Base
     "#{start_month} #{start_day}-#{end_month} #{end_day}"
   end
 
-  def leader_name
-    leader ? leader.full_name : "Unknown"
-  end
-
 end
