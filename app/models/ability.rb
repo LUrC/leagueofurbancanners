@@ -4,6 +4,7 @@ class Ability
   def initialize(user, params)
     Rails.logger.debug(params)
     Rails.logger.debug(user.person)
+    can :manage, Person, :id => user.person.id
     if !user
         can :read, :all
     elsif user.role == "admin"
