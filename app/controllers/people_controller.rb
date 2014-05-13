@@ -90,10 +90,10 @@ class PeopleController < ApplicationController
 
   def site_chooser
     @person = Person.find(params[:id]);
-    # if (!@person.lat || !@person.lon)
-    #   @person.geocode
-    #   @person.save
-    # end
+    if (!@person.lat || !@person.lon)
+      @person.geocode
+      @person.save
+    end
     if (params[:address])
       @address = params[:address]
       coords = Geocoder.coordinates(params[:address])
