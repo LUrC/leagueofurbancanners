@@ -2,7 +2,11 @@
 
 <p id="notice"><%= notice %></p>
 
-<p><%= link_to 'Edit Site', edit_site_path(:site_id => @site.id), :class => 'btn btn-primary' %></p>
+<p><%= link_to 'Edit Site', edit_site_path(:site_id => @site.id), :class => 'btn btn-primary' %>
+    <% if !@site.lurc_contact %>
+      <%= link_to 'Coordinate this Site', coordinate_site_path(@site, :person_id => @current_user.person.id), :class => 'btn btn-primary' %>
+    <% end %>
+</p>
 
 <% if user_signed_in? && @site.sees_street(current_user) %>
 <p>
