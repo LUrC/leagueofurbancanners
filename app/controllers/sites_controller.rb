@@ -21,7 +21,7 @@ class SitesController < ApplicationController
 
     if @site_filters
         @site_filters.each do |site_filter|
-            @sites = Site.filter_sites_by(@sites, site_filter);
+            @sites = Site.filter_sites_by(@sites, site_filter)
         end
     end
 
@@ -55,9 +55,9 @@ class SitesController < ApplicationController
     @zipcode_filters = session[:zipcode_filters]
 
     if (@fruit_ids)
-        @sites = Site.has_fruit_in(@fruit_ids).joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+        @sites = Site.has_fruit_in(@fruit_ids).order(sort_column + ' ' + sort_direction)
     else
-        @sites = Site.joins(:lurc_contact).order(sort_column + ' ' + sort_direction)
+        @sites = Site.order(sort_column + ' ' + sort_direction)
     end
 
     if @site_filters
