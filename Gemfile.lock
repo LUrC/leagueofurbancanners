@@ -112,6 +112,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.25.1)
+    minitest (4.3.2)
     multi_json (1.9.2)
     omniauth (1.2.1)
       hashie (>= 1.2, < 3)
@@ -199,6 +200,7 @@ DEPENDENCIES
   gmaps4rails (~> 1.5.6)
   jquery-rails
   json (~> 1.8.0)
+  minitest
   omniauth
   pg
   rails (~> 3.2.0)

@@ -6,6 +6,11 @@ personone:
   phone: MyString
   email: MyString
   user: one
+  street_number: 1
+  street_name: Brattle
+  zipcode: 02138
+  city: Cambridge
+  gmaps: true
 
 persontwo:
   first_name: MyString
@@ -13,3 +18,8 @@ persontwo:
   phone: MyString
   email: MyString
   user: two
+  street_number: 2
+  street_name: Brattle
+  zipcode: 02138
+  city: Cambridge
+  gmaps: true

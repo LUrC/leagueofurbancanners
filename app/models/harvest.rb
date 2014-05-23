@@ -33,7 +33,7 @@ class Harvest < ActiveRecord::Base
   end
 
   def approved_harvesters
-    harvesters[0..harvesters_needed]
+    harvesters[0..harvesters_needed-1]
   end
 
   def waitlisted_harvesters

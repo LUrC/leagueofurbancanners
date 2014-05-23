@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
   end
 
   def can_edit_content?
-    organizer? || role == "contentmanager"
+    admin? || role == "contentmanager"
   end
 
   def self.session_current_user

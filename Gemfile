@@ -30,6 +30,8 @@ group :assets do
   gem 'uglifier', '~> 1.2.0'
 end
 
+gem 'minitest'
+
 gem 'jquery-rails'
 
 gem 'simplecov', '~> 0.7.1', :require => false, :group => :test

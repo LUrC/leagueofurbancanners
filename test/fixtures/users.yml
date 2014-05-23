@@ -10,3 +10,11 @@ one:
 #
 two:
   email: emailtwo@email.com
+
+three:
+  email: emailthree@email.com
+  role: organizer
+
+four:
+  email: emailfour@gmail.com
+  role: contentmanager

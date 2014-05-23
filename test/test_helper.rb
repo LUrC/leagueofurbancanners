@@ -1,4 +1,5 @@
 ENV["RAILS_ENV"] = "test"
+require 'minitest/mock'
 require 'simplecov'
 SimpleCov.start do
   add_filter "/vendor/"

@@ -86,8 +86,6 @@ class Site < ActiveRecord::Base
     end
   end
 
-  # validates :status, :inclusion => { :in => @@STATUSES }, :presence => true
-
   def address
     "#{street_number} #{street_name}, #{city}, MA #{zipcode}"
   end
@@ -111,7 +109,7 @@ class Site < ActiveRecord::Base
   def owner_contact_status
     if !owner
       "owner unknown"
-    elsif (owner.full_name.blank?) && owner.phone.blank? && owner.email.blank?
+    elsif (owner_name.blank?) && owner.phone.blank? && owner.email.blank?
       "no contact info"
     elsif owner.phone.blank? && owner.email.blank?
       "name only"

@@ -14,8 +14,8 @@ class Person < ActiveRecord::Base
   has_many :owned_sites, :class_name => 'Site', :foreign_key => 'owner_id', :dependent => :nullify
   has_many :secondary_owned_sites, :class_name => 'Site', :foreign_key => 'secondary_owner_id', :dependent => :nullify
   has_many :contact_sites, :class_name => 'Site', :foreign_key => 'lurc_contact_id', :dependent => :nullify
-  has_many :harvestings, :foreign_key => 'harvester_id', :include => :harvest, :order => 'harvests.date DESC, harvestings.id ASC'
-  has_many :harvests, :through => :harvestings
+  has_many :harvestings, :foreign_key => 'harvester_id'
+  has_many :harvests, :order => 'harvests.date DESC', :through => :harvestings
   has_many :person_interests
   has_many :interests, :through => :person_interests
 
@@ -28,7 +28,7 @@ class Person < ActiveRecord::Base
   acts_as_gmappable :lat => "lat", :lng => "lon"
 
   def full_name
-    first_name + " " + last_name
+    (first_name? ? first_name : "") + " " + (last_name? ? last_name : "")
   end
 
   def merge_in(other_person)
@@ -38,6 +38,10 @@ class Person < ActiveRecord::Base
     self.email = other_person.email unless self.email
     self.first_name = other_person.first_name unless self.first_name
     self.phone = other_person.phone unless self.phone
+    self.city = other_person.city unless self.city
+    self.street_number = other_person.street_number unless self.street_number
+    self.street_name = other_person.street_name unless self.street_name
+    self.zipcode = other_person.zipcode unless self.zipcode
     save!
     other_person.destroy
   end

@@ -14,3 +14,28 @@ three:
   harvest: three
   harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
   hours: 1
+
+four:
+  harvest: one
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: 1
+
+five:
+  harvest: one
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:persontwo) %>
+  hours: 1
+
+six:
+  harvest: one
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: 1
+
+seven:
+  harvest: three
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: 1
+
+eight:
+  harvest: three
+  harvester_id: <%= ActiveRecord::Fixtures.identify(:personone) %>
+  hours: 1
