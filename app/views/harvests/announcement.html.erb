@@ -1,0 +1,12 @@
+<p>The following message will be posted to the LURC email list: </p>
+
+<%= form_tag send_announcement_harvest_path(@harvest) do %>
+
+  <p><%= @harvest.harvest_name %></p>
+  <p>Sign up here: <%= link_to  'Harvester Sign Up', @harvest, :class => 'btn btn-primary' %></p>
+
+  <div class="controls"><%= text_area_tag :message %></div>
+  <p>- <%= current_user.person.full_name %></p>
+
+  <%= submit_tag "Send" %>
+<% end %>

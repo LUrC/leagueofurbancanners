@@ -108,7 +108,8 @@
 </p>
 
 <p>
-<% if current_user.person.id == @harvest.leader.id %>
+<% if current_user.person.id == @harvest.leader.id || current_user.admin? %>
+  <%= link_to 'Announce the Harvest to the LURC List', announcement_harvest_path(@harvest), :class => 'btn btn-primary' %>
   <%= link_to 'Email the Harvesters', reminder_harvest_path(@harvest), :class => 'btn btn-primary' %>
 <% end %>
 </p>

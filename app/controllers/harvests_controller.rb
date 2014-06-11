@@ -64,6 +64,23 @@ class HarvestsController < ApplicationController
     end
   end
 
+  #GET /harvests/1/announcement
+  def announcement
+    @harvest = Harvest.find(params[:id])
+  end
+
+  #POST /harvests/1/send_announcement
+  def send_announcement
+    @harvest = Harvest.find(params[:id])
+    @message = params[:message]
+    @from = current_user.person
+    PersonMailer.harvest_announcement(@harvest, @message, @from).deliver
+    respond_to do |format|
+      format.html { redirect_to @harvest, notice: 'Announcement was successfully sent.'}
+      format.json { render json: @harvest, location: @harvest }
+    end
+  end
+
   # POST /harvests
   # POST /harvests.json
   def create

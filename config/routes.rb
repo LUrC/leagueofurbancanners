@@ -7,14 +7,16 @@ Lurc::Application.routes.draw do
   resources :cannings
   resources :canning_sessions
   resources :harvests do
-      resources :harvestings do
-        get 'reminder'
-        post 'send_reminder'
-      end
-      member do
-        get 'reminder'
-        post 'send_reminder'
-      end
+    resources :harvestings do
+      get 'reminder'
+      post 'send_reminder'
+    end
+    member do
+      get 'reminder'
+      post 'send_reminder'
+      get 'announcement'
+      post 'send_announcement'
+    end
   end
   resources :status_checks
   resources :fruit_trees
