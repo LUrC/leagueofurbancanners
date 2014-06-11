@@ -14,6 +14,8 @@ class Ability
     else
         can :read, :all
         can :map, :all
+        can :create, Site
+        can :create, FruitTree
         can :site_chooser, Person, :id => user.person.id
         can :coordinate, Site if params[:person_id].to_i == user.person.id
         can :create, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
