@@ -60,7 +60,7 @@
       <th>Status</th>
     <% end %>
     <th></th>
-    <% if user_signed_in? && current_user.organizer? || current_user.person.id == @harvest.leader.id || current_user.person.id == harvesting.harvester_id %>
+    <% if user_signed_in? && current_user.organizer? || current_user.person.id == @harvest.leader.id || @harvest.harvestings.map(&:harvester_id).include?(current_user.person.id) %>
       <th></th>
       <th></th>
     <% end %>
@@ -84,6 +84,9 @@
     <% if user_signed_in? && current_user.organizer? || current_user.person.id == @harvest.leader.id || current_user.person.id == harvesting.harvester_id %>
       <td><%= link_to 'Edit', edit_harvest_harvesting_path(@harvest, harvesting), :class => 'btn btn-mini' %></td>
       <td><%= link_to 'Cancel', harvest_harvesting_path(@harvest, harvesting, :person_id => current_user.person.id), method: :delete, data: { confirm: 'Are you sure?  If you are canceling close to the harvest date, please email the organizer to let them know.' }, :class => 'btn btn-mini btn-danger' %></td>
+    <% else %>
+      <td></td>
+      <td></td>
     <% end %>
     <% if current_user.person.id == @harvest.leader.id %>
       <td><%= link_to 'Email', harvest_harvesting_reminder_path(@harvest, harvesting), :class => 'btn btn-mini' %></td>
