@@ -79,11 +79,11 @@ class Site < ActiveRecord::Base
   end
 
   def site_name
-    if User.session_current_user && sees_street(User.session_current_user)
+    # if User.session_current_user && sees_street(User.session_current_user)
       street_name + " (##{street_number})"
-    else
-      street_name + " (#hidden)"
-    end
+    # else
+    #   street_name + " (#hidden)"
+    # end
   end
 
   def address

@@ -18,7 +18,11 @@ Lurc::Application.routes.draw do
       post 'send_announcement'
     end
   end
-  resources :status_checks
+  resources :status_checks do
+    member do
+      get 'add_image'
+    end
+  end
   resources :fruit_trees
   resources :fruits
   resources :sites do

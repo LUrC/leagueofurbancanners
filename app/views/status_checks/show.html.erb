@@ -22,3 +22,6 @@
   <%= @status_check.notes %>
 </p>
 
+<p>
+    <b>Image</b> <%= link_to 'Upload an Image', add_image_status_check_path(@status_check), :class => 'btn btn-primary' %>
+    <%= image_tag @status_check.image if @status_check.image.file %>

@@ -15,7 +15,7 @@ class StatusChecksController < ApplicationController
   # GET /status_checks/1.json
   def show
     @status_check = StatusCheck.find(params[:id])
-
+    @status_check.update_attribute :key, params[:key] if params[:key]
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json: @status_check }
@@ -32,6 +32,13 @@ class StatusChecksController < ApplicationController
       format.html # new.html.erb
       format.json { render json: @status_check }
     end
+  end
+
+  # GET /status_checks/1/add_image
+  def add_image
+    @status_check = StatusCheck.find(params[:id])
+    @uploader = @status_check.image
+    @uploader.success_action_redirect = status_check_url
   end
 
   # GET /status_checks/1/edit

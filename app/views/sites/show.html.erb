@@ -100,6 +100,33 @@
 <% end %>
 </table>
 
+<h2>Status Checks</h2>
+<% @site.fruit_trees.each do |fruit_tree| %>
+<p><%= link_to "New Status Check #{fruit_tree.tree_name}", new_status_check_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-primary' %></p>
+<% end %>
+<table class="table table-striped">
+  <tr>
+    <th>Fruit Tree</th>
+    <th>Date</th>
+    <th>Status</th>
+    <th>Notes</th>
+    <th>Image</th>
+  </tr>
+
+<% @site.fruit_trees.each do |fruit_tree| %>
+  <% fruit_tree.status_checks.each do |status_check| %>
+    <tr>
+      <td><%= fruit_tree.tree_name %></td>
+      <td><%= status_check.date.to_s :human %></td>
+      <td><%= status_check.status %></td>
+      <td><%= status_check.notes %></td>
+      <td><%= image_tag status_check.image if status_check.image.file %></td>
+    </tr>
+  <% end %>
+<% end %>
+</table>
+
+
 <h2>Harvests</h2>
 
 <table class="table table-striped">

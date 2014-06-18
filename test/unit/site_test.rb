@@ -51,11 +51,11 @@ class SiteTest < ActiveSupport::TestCase
     end
   end
 
-  test "hides the street number when user is not authorized to see it" do
-    User.stub :session_current_user, users(:two) do
-      assert_equal(@site1.site_name, "#{@site1.street_name} (#hidden)")
-    end
-  end
+  # test "hides the street number when user is not authorized to see it" do
+  #   User.stub :session_current_user, users(:two) do
+  #     assert_equal(@site1.site_name, "#{@site1.street_name} (#hidden)")
+  #   end
+  # end
 
   test "gives the owner name if owner is present" do
     @site1.owner = people(:personone)

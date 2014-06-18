@@ -22,6 +22,9 @@ gem 'geocoder'
 
 gem 'comfortable_mexican_sofa', '~> 1.8.1'
 gem 'comfy_blog', github: 'joahking/comfy-blog', branch: 'feature/1-8-1'
+gem 'carrierwave'
+gem "fog", "~> 1.3.1"
+gem 'carrierwave_direct'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'

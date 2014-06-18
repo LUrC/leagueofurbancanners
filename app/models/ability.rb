@@ -22,6 +22,8 @@ class Ability
         can :update, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
         can :create, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
         can :destroy, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
+        can :create, StatusCheck
+        can :add_image, StatusCheck
     end
 
     # Define abilities for the passed in user here. For example:

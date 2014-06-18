@@ -1,0 +1,22 @@
+<h1><%= link_to @status_check.check_name, @status_check %></h1>
+<p>
+  <b>Fruit tree:</b>
+  <%= link_to @status_check.fruit_tree.tree_name, @status_check.fruit_tree %>
+</p>
+
+<p>
+  <b>Status:</b>
+  <%= @status_check.status %>
+</p>
+
+
+<%= direct_upload_form_for @uploader do |f| %>
+    <div class="control-group">
+        <div class="controls">
+            <%= f.file_field :image, :class => '' %>
+        </div>
+    </div>
+    <div class="control-group">
+        <%= f.submit 'Upload Status Check Image', :class => 'btn btn-primary' %>
+    </div>
+<% end %>
