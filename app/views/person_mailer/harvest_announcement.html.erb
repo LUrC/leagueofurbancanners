@@ -6,7 +6,7 @@
   <body>
 
     <p><%= @harvest.harvest_name %></p>
-    <p>Sign up here: <%= link_to  'Harvester Sign Up', @harvest %></p>
+    <p>Sign up here: <%= link_to  'Harvester Sign Up', harvest_url(@harvest) %></p>
 
     <p><%= @message %></p>
     <p>- <%= @from_person.full_name %></p>
