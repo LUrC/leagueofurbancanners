@@ -24,6 +24,7 @@ class Ability
         can :destroy, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
         can :create, StatusCheck
         can :add_image, StatusCheck
+        can :edit, Site, Site do |site| site.lurc_contact == user.person end
     end
 
     # Define abilities for the passed in user here. For example:
