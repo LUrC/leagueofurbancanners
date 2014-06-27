@@ -13,11 +13,11 @@
 
   <div class="control-group">
     <%= f.label :canning_session_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :canning_session_id, CanningSession.all, :id, :session_name, {:include_blank => "Unknown"} %></div>
+    <div class="controls"><%= f.collection_select :canning_session_id, CanningSession.all, :id, :session_name, {:include_blank => "Unknown"}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :canner_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :canner_id, Person.all, :id, :full_name %></div>
+    <div class="controls"><%= f.collection_select :canner_id, Person.all, :id, :full_name, {:include_blank => "Unknown"}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :hours, :class => 'control-label' %>

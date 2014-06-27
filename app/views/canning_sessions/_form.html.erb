@@ -13,11 +13,11 @@
 
   <div class="control-group">
     <%= f.label :harvest_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :harvest_id, Harvest.all, :id, :harvest_name %></div>
+    <div class="controls"><%= f.collection_select :harvest_id, Harvest.all, :id, :harvest_name, {}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :leader_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :leader_id, Person.all, :id, :full_name, {:include_blank => 'Unknown'} %></div>
+    <div class="controls"><%= f.collection_select :leader_id, Person.all, :id, :full_name, {:include_blank => 'Unknown'}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :date, :class => 'control-label' %>

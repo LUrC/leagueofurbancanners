@@ -9,20 +9,21 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
+ *= require chosen
  *= require_tree .
  */
- 
+
  th .current {
    padding-right: 18px;
    background-repeat: no-repeat;
    background-position: right center;
  }
- th .asc { 
-   background-image: image-url("uparrow.gif"); 
+ th .asc {
+   background-image: image-url("uparrow.gif");
  }
 
- th .desc { 
-   background-image: image-url("downarrow.gif"); 
+ th .desc {
+   background-image: image-url("downarrow.gif");
  }
 
  form ul{

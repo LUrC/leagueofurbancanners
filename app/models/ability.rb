@@ -20,11 +20,20 @@ class Ability
         can :coordinate, Site if params[:person_id].to_i == user.person.id
         can :create, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
         can :update, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
+        can :edit, Harvest
+        can :update, Harvest
         can :create, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
         can :destroy, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
         can :create, StatusCheck
         can :add_image, StatusCheck
         can :edit, Site, Site do |site| site.lurc_contact == user.person end
+        can :edit, Person
+        can :update, Person
+        can :create, Person
+        can :create, Canning if params[:person_id] && params[:person_id].to_id == user.person.id
+        can :destroy, Canning if params[:person_id] && params[:person_id].to_id == user.person.id
+        can :create, CanningSession
+        can :update, CanningSession
     end
 
     # Define abilities for the passed in user here. For example:

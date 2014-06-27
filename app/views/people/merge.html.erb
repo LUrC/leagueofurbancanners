@@ -12,12 +12,12 @@
     </ul>
   </div>
 <% end %>
-  
+
   <div class="control-group">
     <%= label_tag 'Select Person to Merge With', nil, :class => 'control-label' %>
-    <div class="controls"><%= select_tag "other_person_id", options_from_collection_for_select(Person.all, "id", "full_name") %></div>
+    <div class="controls"><%= select_tag "other_person_id", options_from_collection_for_select(Person.all, "id", "full_name"), {}, {:class => 'chosen-select'} %></div>
   </div>
-  
+
   <div class="controls">
     <%= submit_tag 'Merge', :class => 'btn btn-primary'%>
   </div>

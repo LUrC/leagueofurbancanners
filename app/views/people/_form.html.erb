@@ -59,7 +59,7 @@
   <div class="control-group">
     <%= f.label :user_id, :class => 'control-label' %>
     <div class="controls">
-      <%= f.collection_select :user_id, User.all, :id, :email, :include_blank => 'Link with a user account' %>
+      <%= f.collection_select :user_id, User.all, :id, :email, {:include_blank => 'Link with a user account'}, {:class => 'chosen-select'} %>
       <%= link_to 'Manage User', edit_user_path(@person.user), :class => 'btn' if @person.user %>
     </div>
   </div>

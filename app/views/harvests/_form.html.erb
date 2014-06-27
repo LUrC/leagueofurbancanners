@@ -12,11 +12,11 @@
   <% end %>
   <div class="control-group">
     <%= f.label :fruit_tree_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :fruit_tree_id, FruitTree.by_street, :id, :tree_name %></div>
+    <div class="controls"><%= f.collection_select :fruit_tree_id, FruitTree.by_street, :id, :tree_name, {}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :leader_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :leader_id, Person.order(:last_name, :first_name), :id, :full_name, {:include_blank => 'Unknown'} %></div>
+    <div class="controls"><%= f.collection_select :leader_id, Person.order(:last_name, :first_name), :id, :full_name, {:include_blank => 'Unknown'}, {:class => 'chosen-select'} %></div>
   </div>
   <div class="control-group">
     <%= f.label :date, :class => 'control-label' %>

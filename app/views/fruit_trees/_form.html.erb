@@ -13,7 +13,7 @@
 
   <div class="control-group">
     <%= f.label :site_id, :class => 'control-label' %>
-    <div class="controls"><%= f.collection_select :site_id, Site.by_street, :id, :site_name %>
+    <div class="controls"><%= f.collection_select :site_id, Site.by_street, :id, :site_name, {}, {:class => 'chosen-select'} %>
       <%= link_to 'Add a new site', new_site_path, :class => 'btn'%></div>
   </div>
   <div class="control-group">
@@ -31,7 +31,7 @@
   </div>
   <div class="control-group">
     <%= f.label 'Season Start', :class => 'control-label' %>
-    <div class="controls"><%= f.select(:season_start_month, MONTHS, :include_blank => true ) %>  
+    <div class="controls"><%= f.select(:season_start_month, MONTHS, :include_blank => true ) %>
     <%= f.select(:season_start_day, (1..31).to_a, :include_blank => true ) %>
     <% if !@fruit_tree.fruit.nil? %>
       <span class="inline-help">Default fruit start date is <%= @fruit_tree.fruit.season_start_month %> <%= @fruit_tree.fruit.season_start_day %></span>

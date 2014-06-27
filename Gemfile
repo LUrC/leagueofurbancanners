@@ -25,6 +25,8 @@ gem 'comfy_blog', github: 'joahking/comfy-blog', branch: 'feature/1-8-1'
 gem 'carrierwave'
 gem "fog", "~> 1.3.1"
 gem 'carrierwave_direct'
+gem 'chosen-rails'
+gem 'jquery-rails'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.0'
