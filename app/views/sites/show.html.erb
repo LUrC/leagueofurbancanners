@@ -129,8 +129,10 @@
 
 <h2>Harvests</h2>
 
-<p><%= link_to 'Schedule a Harvest', new_harvest_path(@site), :class => 'btn btn-primary' %></p>
- <table class="table table-striped">
+<% @site.fruit_trees.each do |fruit_tree| %>
+<p><%= link_to "Schedule Harvest: #{fruit_tree.tree_name}", new_harvest_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-primary' %></p>
+<% end %>
+<table class="table table-striped">
   <tr>
     <th>Fruit tree</th>
     <th>Date</th>
