@@ -17,9 +17,9 @@
 <table class="table table-striped">
   <tr>
     <th>Site</th>
-    <th><%= sortable 'fruit_id', "Fruit" %></th>
-    <th><%= sortable 'pruning_candidate', "Pruning Candidate" %></th>
-    <th><%= sortable 'pruning_permission', "Pruning Permission" %></th>
+    <th><%= sortable 'sites', 'fruit_id', "Fruit" %></th>
+    <th><%= sortable 'fruit_trees', 'pruning_candidate', "Pruning Candidate" %></th>
+    <th><%= sortable 'fruit_trees', 'pruning_permission', "Pruning Permission" %></th>
     <th>Season start</th>
     <th>Season end</th>
     <th></th>
@@ -49,4 +49,3 @@
 <%= will_paginate @sites %>
 
 <br />
-

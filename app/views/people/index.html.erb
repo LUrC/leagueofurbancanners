@@ -6,7 +6,7 @@
 
 <table class="table table-striped">
   <tr>
-    <th>First name</th>
+    <th><%= sortable 'people', 'first_name', 'First name' %></th>
     <th>Last name</th>
     <% if user_signed_in? && current_user.organizer? %>
       <th>Phone</th>

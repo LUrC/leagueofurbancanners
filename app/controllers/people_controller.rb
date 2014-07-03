@@ -1,9 +1,10 @@
 class PeopleController < ApplicationController
-    load_and_authorize_resource
+  helper_method :sort_column, :sort_direction
+  load_and_authorize_resource
   # GET /people
   # GET /people.json
   def index
-    @people = Person.order(:last_name, :first_name).paginate(:per_page => 50, :page => params[:page])
+    @people = Person.order(sort_column + ' ' + sort_direction).paginate(:per_page => 50, :page => params[:page])
 
     respond_to do |format|
       format.html # index.html.erb
@@ -130,5 +131,14 @@ class PeopleController < ApplicationController
       format.html { redirect_to people_url }
       format.json { head :no_content }
     end
+  end
+
+  private
+  def sort_column
+    Person.column_names.include?(params[:sort]) ? params[:sort] : "last_name, first_name"
+  end
+
+  def sort_direction
+     %w[asc desc].include?(params[:direction]) ?  params[:direction] : "asc"
   end
 end
