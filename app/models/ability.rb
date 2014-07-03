@@ -17,16 +17,16 @@ class Ability
         can :create, Site
         can :create, FruitTree
         can :site_chooser, Person, :id => user.person.id
-        can :coordinate, Site if params[:person_id].to_i == user.person.id
-        can :create, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
-        can :update, Harvest if params[:harvest] && FruitTree.find(params[:harvest][:fruit_tree_id]).site.lurc_contact.id = user.person.id
+        can :coordinate, Site
         can :edit, Harvest
         can :update, Harvest
-        can :create, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
+        can :create, Harvest
+        can :create, Harvesting
         can :destroy, Harvesting if params[:person_id] && params[:person_id].to_i == user.person.id
         can :create, StatusCheck
         can :add_image, StatusCheck
         can :edit, Site, Site do |site| site.lurc_contact == user.person end
+        can :update, Site, Site do |site| site.lurc_contact == user.person end
         can :edit, Person
         can :update, Person
         can :create, Person

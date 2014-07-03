@@ -87,7 +87,7 @@
     <td><%= fruit_tree.start_month %> <%= fruit_tree.start_day %></td>
     <td><%= fruit_tree.end_month %> <%= fruit_tree.end_day %></td>
     <td><%= link_to 'Learn More', fruit_tree, :class => 'btn btn-mini' %></td>
-    <% if current_user.person.id == @site.lurc_contact_id %>
+    <% if current_user.person.id == @site.lurc_contact_id || current_user.admin? %>
       <td><%= link_to 'Schedule Harvest', new_harvest_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini btn-primary' %></td>
       <td><%= link_to 'Schedule Pruning', new_pruning_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini' %></td>
       <td><%= link_to 'Report Status Check', new_status_check_path(:fruit_tree_id => fruit_tree.id), :class => 'btn btn-mini' %></td>
