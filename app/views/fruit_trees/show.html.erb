@@ -27,7 +27,7 @@
     No status checks recorded.
   <% else %>
     <%= @fruit_tree.status_checks.first.status %> <%= @fruit_tree.status_checks.first.date.to_s :human %>
-    <%= image_tag @fruit_tree.status_checks.first.image if @fruit_tree.status_checks.first.image && @fruit_tree.status_checks.first.image.exists? %>
+    <%= image_tag @fruit_tree.status_checks.first.image if @fruit_tree.status_checks.first.image.file %>
   <% end %>
 </p>
 
