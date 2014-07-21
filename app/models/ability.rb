@@ -30,8 +30,8 @@ class Ability
         can :edit, Person
         can :update, Person
         can :create, Person
-        can :create, Canning if params[:person_id] && params[:person_id].to_id == user.person.id
-        can :destroy, Canning if params[:person_id] && params[:person_id].to_id == user.person.id
+        can :create, Canning if params[:person_id] && params[:person_id].to_i == user.person.id
+        can :destroy, Canning if params[:person_id] && params[:person_id].to_i == user.person.id
         can :create, CanningSession
         can :update, CanningSession
     end
